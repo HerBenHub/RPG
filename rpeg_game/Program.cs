@@ -35,67 +35,23 @@
     //tulajdonsáhok tovább: Mate, Enemy osztályba. Ahol csak az adott csoportra jellemző tulajdonságok lesznek
     //ott lehet látni pluszban még functionoket: public int damage. Mert ez csak az enemy tulajdonsága lesz
     
-    public class Mate() : Characters
+    public class Fighter : Characters
     {
-        public void Fighter()
+        private int strength = 0;
+        public Fighter(string _name, int _hp, int _defense, int _weapon, int _armour, int _damage) : base(_name, _hp, _defense, _weapon, _armour)
         {
-            
-        }
-
-        public void Ranger()
-        {
-            
-        }
-
-        public void Sorcerer()
-        {
-            
-        }
-
-        public void Rogue()
-        {
-
+            damage = _damage;
         }
     }
-
-    public class Enemy : Characters
+    
+    public class Hero : Characters
     {
-        public int damage; //if enemy
-
-        public void Goblin() //Void!!
-        {
-
-        }
-
-        public void Rat()
+        public Hero(string _name, int _hp, int _defense, int _weapon, int _armour) : base(_name, _hp, _defense, _weapon, _armour)
         {
             
         }
-
-        public void Sceleton()
-        {
-            
-        }
-
-        public void Orc()
-        {
-            
-        }
-
-        public void Werewolf()
-        {
-            
-        }
-        public void giantSpider()
-        {
-            
-        }
-
-        public void Demon()
-        {
-            
-        }
-}
+    }
+    
     public static void Main(string[] args)
     {
         

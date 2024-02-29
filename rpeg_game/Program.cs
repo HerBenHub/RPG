@@ -8,11 +8,26 @@
         public int weapon; //attack
         public int armour;
 
+        public Characters(string _name, int _hp, int _defense, int _weapon, int _armour)
+        {
+            name = _name;
+            hp = _hp;
+            defense = _defense;
+            weapon = _weapon;
+            armour = _armour;
+        }
         public void levelUp()
         {
             hp += 10;
             defense += 10;
             weapon += 10;//actual weapon damage + 10
+        }
+
+        public void death()
+        {
+            Console.WriteLine("Meghaltál!");
+            
+            
         }
     }
     
@@ -20,16 +35,67 @@
     //tulajdonsáhok tovább: Mate, Enemy osztályba. Ahol csak az adott csoportra jellemző tulajdonságok lesznek
     //ott lehet látni pluszban még functionoket: public int damage. Mert ez csak az enemy tulajdonsága lesz
     
-    public class Mate : Characters
+    public class Mate() : Characters
     {
-        //Mates here
+        public void Fighter()
+        {
+            
+        }
+
+        public void Ranger()
+        {
+            
+        }
+
+        public void Sorcerer()
+        {
+            
+        }
+
+        public void Rogue()
+        {
+
+        }
     }
+
     public class Enemy : Characters
     {
         public int damage; //if enemy
-        
-        //Enemys here
-    }
+
+        public void Goblin() //Void!!
+        {
+
+        }
+
+        public void Rat()
+        {
+            
+        }
+
+        public void Sceleton()
+        {
+            
+        }
+
+        public void Orc()
+        {
+            
+        }
+
+        public void Werewolf()
+        {
+            
+        }
+        public void giantSpider()
+        {
+            
+        }
+
+        public void Demon()
+        {
+            
+        }
+}
     public static void Main(string[] args)
     {
         

@@ -37,7 +37,7 @@
     
     public class Fighter : Characters
     {
-        private int strength = 0;
+        private int damage = 0;
         public Fighter(string _name, int _hp, int _defense, int _weapon, int _armour, int _damage) : base(_name, _hp, _defense, _weapon, _armour)
         {
             damage = _damage;

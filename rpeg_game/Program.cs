@@ -19,6 +19,7 @@
     //Ha ügyesek vagyunk akkor jó lesz. Szóval itt öröklődnek a Character class-ból a
     //tulajdonsáhok tovább: Mate, Enemy osztályba. Ahol csak az adott csoportra jellemző tulajdonságok lesznek
     //ott lehet látni pluszban még functionoket: public int damage. Mert ez csak az enemy tulajdonsága lesz
+    
     public class Mate : Characters
     {
         //Mates here

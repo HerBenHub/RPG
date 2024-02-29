@@ -38,3 +38,4 @@
 //Feladatok kiosztása
 //Csapatmunka összehozása (mikor, mennyit, mit)
 //Következő: játékmenet kiötletelése (menet közben nagyban módusulhat)
+//teszt

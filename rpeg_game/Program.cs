@@ -1,4 +1,9 @@
-﻿internal class Program
+﻿using System.Security.Cryptography;
+using System.Text.Json;
+using JsonManager;
+using RitkasagManager;
+
+internal class Program
 {
     public class Characters
     {
@@ -51,9 +56,13 @@
             
         }
     }
-    
+
     public static void Main(string[] args)
     {
+
+        Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
+        
+        Console.WriteLine(RitkasagSzamolo.LadaLootGenerate("legendary"));
         
     }
 }

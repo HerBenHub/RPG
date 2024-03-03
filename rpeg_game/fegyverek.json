@@ -1,0 +1,16 @@
+{
+    "sima_kard":
+    {
+        "tipus":"kard",
+        "nev": "Sima Kard",
+        "sebzes": 5,
+        "ritkasag":"common"
+    },
+    "szeltoro":
+    {
+        "tipus":"kard",
+        "nev": "Széltörő",
+        "sebzes": 100,
+        "ritkasag":"legendary"
+    }
+}

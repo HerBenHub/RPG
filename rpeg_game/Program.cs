@@ -1,4 +1,6 @@
-﻿internal class Program
+﻿using System.Xml.Serialization;
+
+internal class Program
 {
     public class Characters
     {
@@ -18,21 +20,25 @@
         }
         public void levelUp()
         {
+            //*0,1 hp
             hp += 10;
             defense += 10;
             weapon += 10;//actual weapon damage + 10
         }
 
+        public void getValues()
+        {
+            //Import JSON
+        }
+
         public void death()
         {
             Console.WriteLine("Meghaltál!");
-            
-            
         }
     }
     
     //Ha ügyesek vagyunk akkor jó lesz. Szóval itt öröklődnek a Character class-ból a
-    //tulajdonsáhok tovább: Mate, Enemy osztályba. Ahol csak az adott csoportra jellemző tulajdonságok lesznek
+    //tulajdonsáhok tovább: Fighter, Enemy osztályba. Ahol csak az adott csoportra jellemző tulajdonságok lesznek
     //ott lehet látni pluszban még functionoket: public int damage. Mert ez csak az enemy tulajdonsága lesz
     
     public class Fighter : Characters
@@ -51,14 +57,20 @@
             
         }
     }
+
+    
     
     public static void Main(string[] args)
     {
-        
+       
     }
 }
+
 //AZ rpg játék...
 //Feladatok kiosztása
 //Csapatmunka összehozása (mikor, mennyit, mit)
 //Következő: játékmenet kiötletelése (menet közben nagyban módusulhat)
 //teszt
+//Menu mindig lefut egy érték átadás miatt, 
+//Menut megcsinálni a main függvényben
+//Kiválasztjuk a játékost majd ahhoz kapunk bizonyos felszereltségi szintet(armour, weapon, defense rate)

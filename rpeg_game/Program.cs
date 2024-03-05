@@ -1,4 +1,9 @@
-﻿using System.Xml.Serialization;
+using System.Security.Cryptography;
+using System.Text.Json;
+using JsonManager;
+using RitkasagManager;
+
+using System.Xml.Serialization;
 
 internal class Program
 {
@@ -34,6 +39,8 @@ internal class Program
         public void death()
         {
             Console.WriteLine("Meghaltál!");
+            
+            
         }
     }
     
@@ -60,8 +67,14 @@ internal class Program
 
     
     
+
     public static void Main(string[] args)
     {
+
+        Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
+        
+        Console.WriteLine(RitkasagSzamolo.LadaLootGenerate("legendary"));
+        
        
     }
 }

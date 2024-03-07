@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text.Json;
 using JsonManager;
 using RitkasagManager;
@@ -63,6 +65,18 @@ internal class Program
         Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
         
         Console.WriteLine(RitkasagSzamolo.LadaLootGenerate("legendary"));
+
+        PropertyInfo[] properties = typeof(FegyverAdatok).GetProperties();
+        System.Console.WriteLine(properties);
+
+        foreach (PropertyInfo prop in properties)
+        {
+            Console.WriteLine(prop);
+        }
+
+        
+        
+        
         
     }
 }

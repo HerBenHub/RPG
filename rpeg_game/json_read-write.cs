@@ -9,6 +9,7 @@ namespace JsonManager
         public string? nev { get; set; }
         public int sebzes { get; set; }
         public string? ritkasag { get; set; }
+        public Dictionary<string,string>? szoveg { get; set; }
     }
 
     public class EllensegAdatok

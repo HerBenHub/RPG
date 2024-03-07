@@ -25,7 +25,6 @@ internal class Program
         }
         public void levelUp()
         {
-            //*0,1 hp
             hp += 10;
             defense += 10;
             weapon += 10;//actual weapon damage + 10
@@ -75,10 +74,8 @@ internal class Program
         
         Console.WriteLine(RitkasagSzamolo.LadaLootGenerate("legendary"));
         
-       
     }
 }
-
 //AZ rpg játék...
 //Feladatok kiosztása
 //Csapatmunka összehozása (mikor, mennyit, mit)

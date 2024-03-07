@@ -10,8 +10,6 @@ namespace RitkasagManager
     {
         public static string? LadaLootGenerate(string? lada_ritkasag)
         {
-            
-
             var rand = new Random();
 
             Int32 szam = rand.Next(1,100);

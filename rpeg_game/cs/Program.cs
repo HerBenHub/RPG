@@ -71,9 +71,12 @@ internal class Program
     public static void Main(string[] args)
     {
 
-        Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
+        Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista(); //Itt nem tetszik neki valami
         
         Console.WriteLine(RitkasagSzamolo.LadaLootGenerate("legendary"));
+        
+        string fileName = @"szovegek.json";
+        JsonOlvaso.ProcessJsonFile(fileName);
         
     }
 }

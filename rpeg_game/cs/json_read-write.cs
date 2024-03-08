@@ -1,8 +1,10 @@
-using System.Runtime.CompilerServices;
-using System.Text.Json;
-
+using System;
+using System.Collections.Generic;
+using System.IO; 
+using Newtonsoft.Json; 
 namespace JsonManager
 {
+    
     public class FegyverAdatok
     {
         public string? tipus { get; set; }
@@ -31,11 +33,10 @@ namespace JsonManager
     {
         public static Dictionary<string,FegyverAdatok>? FegyverLista()
         {
-
             string fileName = @"fegyverek.json";
-            string jsonString = File.ReadAllText(fileName);
 
-            Dictionary<string,FegyverAdatok>? summary = JsonSerializer.Deserialize<Dictionary<string,FegyverAdatok>>(jsonString);
+            string jsonString = File.ReadAllText(fileName); //Itt nem tetszik neki valami
+            Dictionary<string, FegyverAdatok>? summary = JsonConvert.DeserializeObject<Dictionary<string, FegyverAdatok>>(jsonString);
             //json felbontása
 
             return summary;
@@ -48,7 +49,7 @@ namespace JsonManager
             string fileName = @"ritkasag.json";
             string jsonString = File.ReadAllText(fileName);
 
-            RitkasagAdatok? ritkasag = JsonSerializer.Deserialize<RitkasagAdatok>(jsonString);
+            RitkasagAdatok? ritkasag = JsonConvert.DeserializeObject<RitkasagAdatok>(jsonString);
 
             Dictionary<string,List<string>> lista = new Dictionary<string,List<string>>();
             lista.Add("common",ritkasag.common.Split('/').ToList());
@@ -62,7 +63,42 @@ namespace JsonManager
             return lista;
 
         }
+        
+        //Szövegek beolvasása
+        public static Dictionary<string, Dictionary<string, string>> ReadJsonFile(string fileName)
+        {
+            string jsonString = File.ReadAllText(fileName);
+            return JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(jsonString);
+        }
 
+        public static KeyValuePair<string, string> GetRandomKeyValuePair(Dictionary<string, Dictionary<string, string>> dictionary)
+        {
+            Random rnd = new Random();
+
+            List<string> mainKeys = new List<string>(dictionary.Keys);
+            string selectedMainKey = mainKeys[rnd.Next(mainKeys.Count)];
+
+            var subDictionary = dictionary[selectedMainKey];
+            List<string> subKeys = new List<string>(subDictionary.Keys);
+
+            string selectedSubKey = subKeys[rnd.Next(subKeys.Count)];
+            string selectedValue = subDictionary[selectedSubKey];
+
+            return new KeyValuePair<string, string>(selectedMainKey, selectedValue);
+        }
+
+        public static void PrintKeyValuePair(KeyValuePair<string, string> selectedKeyValuePair)
+        {
+            Console.WriteLine($"Választott kulcs: {selectedKeyValuePair.Key}, Alkulcs: {selectedKeyValuePair.Key}, Érték: {selectedKeyValuePair.Value}");
+        }
+
+        public static void ProcessJsonFile(string fileName)
+        {
+            var dictionary = ReadJsonFile(fileName);
+            var selectedKeyValuePair = GetRandomKeyValuePair(dictionary);
+            PrintKeyValuePair(selectedKeyValuePair);
+        }
 
     }
 }
+//using newtonsoft.json!!! (JsonConvert.DeserializeObject NOT JsonSerializer.Deserialize)

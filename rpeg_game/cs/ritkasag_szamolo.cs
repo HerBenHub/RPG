@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using JsonManager;
 using System;
-
+using Newtonsoft.Json; 
 namespace RitkasagManager
 {
 

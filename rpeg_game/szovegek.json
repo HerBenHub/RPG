@@ -5,5 +5,17 @@
     },
     "elhagyatott_kard": {
         "felveszed?":"felvenni"
+    },
+     "kereskedo": {
+        "beszélj vele.":"Mit árulsz?",
+        "hagyd ott.":"Viszlát!"
+    },
+    "csapda":{
+        "átugrik":"Megbotlottál és bele estél.",
+        "megkerül":"Óvatosan megkerülted a csapdát."
+    },
+    "ellensegek":{
+        
     }
+    
 }

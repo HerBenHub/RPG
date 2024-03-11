@@ -8,7 +8,7 @@ namespace RitkasagManager
 
     class RitkasagSzamolo
     {
-        public static string? LadaLootGenerate(string? lada_ritkasag)
+        public static string? LadaLootGenerate(string? lada_ritkasag) 
         {
             var rand = new Random();
 

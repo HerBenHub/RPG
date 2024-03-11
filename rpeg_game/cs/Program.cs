@@ -75,7 +75,7 @@ internal class Program
         
         Console.WriteLine(RitkasagSzamolo.LadaLootGenerate("legendary"));
         
-        string fileName = @"szovegek.json";
+        string fileName = @"../../../json/szovegek.json";
         JsonOlvaso.ProcessJsonFile(fileName);
         
     }

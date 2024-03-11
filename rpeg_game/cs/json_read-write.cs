@@ -35,7 +35,7 @@ namespace JsonManager
         {
             string fileName = @"../../../json/fegyverek.json";
 
-            string jsonString = File.ReadAllText(fileName); //Itt nem tetszik neki valami
+            string jsonString = File.ReadAllText(fileName);
             Dictionary<string, FegyverAdatok>? summary = JsonConvert.DeserializeObject<Dictionary<string, FegyverAdatok>>(jsonString);
             //json felbontása
 
@@ -71,33 +71,33 @@ namespace JsonManager
             return JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(jsonString);
         }
 
-        public static KeyValuePair<string, string> GetRandomKeyValuePair(Dictionary<string, Dictionary<string, string>> dictionary)
-        {
-            Random rnd = new Random();
+        // public static KeyValuePair<string, string> GetRandomKeyValuePair(Dictionary<string, Dictionary<string, string>> dictionary)
+        // {
+        //     Random rnd = new Random();
+        //
+        //     List<string> mainKeys = new List<string>(dictionary.Keys);
+        //     string selectedMainKey = mainKeys[rnd.Next(mainKeys.Count)];
+        //
+        //     var subDictionary = dictionary[selectedMainKey];
+        //     List<string> subKeys = new List<string>(subDictionary.Keys);
+        //
+        //     string selectedSubKey = subKeys[rnd.Next(subKeys.Count)];
+        //     string selectedValue = subDictionary[selectedSubKey];
+        //
+        //     return new KeyValuePair<string, string>(selectedMainKey, selectedValue);
+        // }
 
-            List<string> mainKeys = new List<string>(dictionary.Keys);
-            string selectedMainKey = mainKeys[rnd.Next(mainKeys.Count)];
-
-            var subDictionary = dictionary[selectedMainKey];
-            List<string> subKeys = new List<string>(subDictionary.Keys);
-
-            string selectedSubKey = subKeys[rnd.Next(subKeys.Count)];
-            string selectedValue = subDictionary[selectedSubKey];
-
-            return new KeyValuePair<string, string>(selectedMainKey, selectedValue);
-        }
-
-        public static void PrintKeyValuePair(KeyValuePair<string, string> selectedKeyValuePair)
-        {
-            Console.WriteLine($"Választott kulcs: {selectedKeyValuePair.Key}, Alkulcs: {selectedKeyValuePair.Key}, Érték: {selectedKeyValuePair.Value}");
-        }
-
-        public static void ProcessJsonFile(string fileName)
-        {
-            var dictionary = ReadJsonFile(fileName);
-            var selectedKeyValuePair = GetRandomKeyValuePair(dictionary);
-            PrintKeyValuePair(selectedKeyValuePair);
-        }
+        // public static void PrintKeyValuePair(KeyValuePair<string, string> selectedKeyValuePair)
+        // {
+        //     Console.WriteLine($"Választott kulcs: {selectedKeyValuePair.Key}, Alkulcs: {selectedKeyValuePair.Key}, Érték: {selectedKeyValuePair.Value}");
+        // }
+        //
+        // public static void ProcessJsonFile(string fileName)
+        // {
+        //     var dictionary = ReadJsonFile(fileName);
+        //     var selectedKeyValuePair = GetRandomKeyValuePair(dictionary);
+        //     PrintKeyValuePair(selectedKeyValuePair);
+        // }
 
     }
 }

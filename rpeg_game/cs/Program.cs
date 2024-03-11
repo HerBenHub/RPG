@@ -5,6 +5,8 @@ using RitkasagManager;
 
 using System.Xml.Serialization;
 using Spectre.Console;
+using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 internal class Program
 {
@@ -14,18 +16,21 @@ internal class Program
         public int hp;
         public int defense; //defense
         public string weapon; //attack
-        public int damage;
+        public double damage;
         public string armour;
         public int priority;
+        public Hero? eredeti;
 
-        public Characters(string _name, int _hp, int _defense, string _weapon, string _armour, int _priority)
+        public Characters(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti)
         {
             name = _name;
             hp = _hp;
             defense = _defense;
             weapon = _weapon;
             armour = _armour;
+            damage = _damage;
             priority = _priority;
+            eredeti = _eredeti;
         }
         //Static!!!
         public void levelUp()
@@ -52,10 +57,10 @@ internal class Program
     //tulajdonsáhok tovább: Fighter, Enemy osztályba. Ahol csak az adott csoportra jellemző tulajdonságok lesznek
     //ott lehet látni pluszban még functionoket: public int damage. Mert ez csak az enemy tulajdonsága lesz
     
-    public class Fighter : Characters
+    public class Enemy : Characters
     {
-        private int damage = 0;
-        public Fighter(string _name, int _hp, int _defense, string _weapon, string _armour, int _damage, int _priority) : base(_name, _hp, _defense, _weapon, _armour, _priority)
+        // private double damage = 0;
+        public Enemy(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti)
         {
             damage = _damage;
         }
@@ -63,42 +68,48 @@ internal class Program
     
     public class Hero : Characters
     {
-        public Hero(string _name, int _hp, int _defense, string _weapon, string _armour, int _priority) : base(_name, _hp, _defense, _weapon, _armour, _priority)
+        public Hero(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti)
         {
             
         }
     }
 
-    public static Hero chooseCharacter()
+    static List<Hero>? csapat = new List<Hero>();
+    public static Hero? createCharacter(int classnumber = 0)
     {
-        //Játékosok nevei
-        Console.WriteLine("1. Fighter");
-        Console.WriteLine("2. Ranger");
-        Console.WriteLine("3. Sorcerer");
-        Console.WriteLine("4. Rogue");
-        Console.WriteLine();
-        Console.WriteLine("Add meg melyik karakterrel szeretnél leni!");
-        int character = Convert.ToInt16(Console.ReadLine());
-        
-        Hero hero;
-        switch (character)
+        int character = classnumber;
+
+        if (classnumber == 0)
         {
+            Console.WriteLine("1. Fighter");
+            Console.WriteLine("2. Ranger");
+            Console.WriteLine("3. Sorcerer");
+            Console.WriteLine("4. Rogue");
+            Console.WriteLine("\nAdd meg melyik karakterrel szeretnél lenni!");
+            character = Convert.ToInt16(Console.ReadLine());
+        }
+
+        Hero? hero = null;
+        switch (character){
             
             case 1:
-                hero = new Hero("Fighter", 100, 100, "sima_kard", "", 10);
+                hero = new Hero("Fighter", 100, 100, "sima_kard", "nincs", 1, 10, null);
                 break;
             case 2:
-                hero = new Hero("Ranger", 80, 80, "íj", "nincs", 18);
+                hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, null);
                 break;
             case 3:
-                hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 18);
+                hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, null);
                 break;
             case 4:
-                hero = new Hero("Rogue", 80, 80, "penge", "nincs", 22);
+                hero = new Hero("Rogue", 80, 80, "penge", "nincs", 1, 22, null);
                 break;
         }
-        
-        //Local variable!!
+
+        hero.eredeti = new Hero(hero.name, hero.hp, hero.defense, hero.weapon, hero.armour, hero.damage, hero.priority, null);
+
+        csapat?.Add(hero);
+
         return hero;
         
 
@@ -116,16 +127,34 @@ internal class Program
         
         Console.WriteLine(RitkasagSzamolo.LadaLootGenerate("legendary"));
         
-        string fileName = @"../../../json/szovegek.json";
+        // string fileName = @"json/szovegek.json";
         // JsonOlvaso.ProcessJsonFile(fileName);
+        
+        
 
-        chooseCharacter();
-        foreach (var elemek in fegyverek)
+        Hero? player = createCharacter();
+        Hero? player_eredeti = player.eredeti; 
+
+        Hero? seged1 = createCharacter(2);
+
+        foreach (Hero tars in csapat)
         {
-            Console.WriteLine(elemek.Value.nev);
+            System.Console.WriteLine(tars.name);
         }
+
+        player.name = "asbvbsa";
+
+        System.Console.WriteLine(player?.name);
+        System.Console.WriteLine(player_eredeti?.name);
+
         //Értékek elérése
-        Console.WriteLine(fegyverek["sima_kard"].sebzes);
+        ////////////////////////////////////////////////////////
+        // Console.WriteLine(fegyverek["sima_kard"].sebzes);
+        // foreach (var elemek in fegyverek)
+        // {
+        //     Console.WriteLine(elemek.Value.nev);
+        // }
+        ////////////////////////////////////////////////////////
         
 
     }

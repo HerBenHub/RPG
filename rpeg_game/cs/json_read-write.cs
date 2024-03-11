@@ -33,7 +33,8 @@ namespace JsonManager
     {
         public static Dictionary<string,FegyverAdatok>? FegyverLista()
         {
-            string fileName = @"../../../json/fegyverek.json";
+            string fileName = @"json/fegyverek.json";
+            // https://stackoverflow.com/questions/70440731/
 
             string jsonString = File.ReadAllText(fileName);
             Dictionary<string, FegyverAdatok>? summary = JsonConvert.DeserializeObject<Dictionary<string, FegyverAdatok>>(jsonString);
@@ -46,7 +47,8 @@ namespace JsonManager
         public static Dictionary<string,List<string>> RitkasagLista(string? tipus)
         {
 
-            string fileName = @"../../../json/ritkasag.json";
+            string fileName = @"json/ritkasag.json";
+            // https://stackoverflow.com/questions/70440731/
             string jsonString = File.ReadAllText(fileName);
 
             RitkasagAdatok? ritkasag = JsonConvert.DeserializeObject<RitkasagAdatok>(jsonString);

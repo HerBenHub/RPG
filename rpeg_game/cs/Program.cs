@@ -20,8 +20,10 @@ internal class Program
         public string armour;
         public int priority;
         public Hero? eredeti;
+        public int level;
+        public bool canFly;
 
-        public Characters(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti)
+        public Characters(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti, int _level, bool _canFly)
         {
             name = _name;
             hp = _hp;
@@ -31,18 +33,22 @@ internal class Program
             damage = _damage;
             priority = _priority;
             eredeti = _eredeti;
+            level = _level;
+            canFly = _canFly;
+
         }
         //Static!!!
-        public void levelUp()
+        public void levelUp(Hero? hero)
         {
-            hp += 10;
-            defense += 10;
-            
-        }
+            hero.level += 1;
+            hero.damage = hero.damage * 1.1;
+            hero.eredeti.damage = hero.eredeti.damage * 1.1;
+            hero.hp =+ 10;
+            hero.eredeti.hp += 10;
 
-        public void getValues()
-        {
-            //Import JSON
+            Math.Round(hero.damage);
+            Math.Round(hero.eredeti.damage);
+
         }
 
         public void death()
@@ -60,17 +66,15 @@ internal class Program
     public class Enemy : Characters
     {
         // private double damage = 0;
-        public Enemy(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti)
+        public Enemy(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti, _level, _canFly)
         {
-            damage = _damage;
         }
     }
     
     public class Hero : Characters
     {
-        public Hero(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti)
+        public Hero(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti, _level, _canFly)
         {
-            
         }
     }
 
@@ -93,31 +97,26 @@ internal class Program
         switch (character){
             
             case 1:
-                hero = new Hero("Fighter", 100, 100, "sima_kard", "nincs", 1, 10, null);
+                hero = new Hero("Fighter", 100, 100, "sima_kard", "nincs", 1, 10, null, 1, false);
                 break;
             case 2:
-                hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, null);
+                hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, null, 1, false);
                 break;
             case 3:
-                hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, null);
+                hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, null, 1, false);
                 break;
             case 4:
-                hero = new Hero("Rogue", 80, 80, "penge", "nincs", 1, 22, null);
+                hero = new Hero("Rogue", 80, 80, "penge", "nincs", 1, 22, null, 1, false);
                 break;
         }
 
-        hero.eredeti = new Hero(hero.name, hero.hp, hero.defense, hero.weapon, hero.armour, hero.damage, hero.priority, null);
+        hero.eredeti = new Hero(hero.name, hero.hp, hero.defense, hero.weapon, hero.armour, hero.damage, hero.priority, null, 1, false);
 
         csapat?.Add(hero);
 
         return hero;
         
 
-    }
-
-    public void charTools()
-    {
-        
     }
 
     public static void Main(string[] args)
@@ -127,8 +126,8 @@ internal class Program
         
         Console.WriteLine(RitkasagSzamolo.LadaLootGenerate("legendary"));
         
-        // string fileName = @"json/szovegek.json";
-        // JsonOlvaso.ProcessJsonFile(fileName);
+        string fileName = @"json/szovegek.json";
+        JsonOlvaso.ProcessJsonFile(fileName);
         
         
 

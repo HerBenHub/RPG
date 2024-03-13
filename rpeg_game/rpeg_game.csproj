@@ -13,4 +13,16 @@
       <PackageReference Include="Spectre.Console.Cli" Version="0.48.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="json\ritkasag.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="json\szovegek.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="json\fegyverek.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

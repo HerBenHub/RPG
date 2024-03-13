@@ -93,6 +93,7 @@ internal class Program
             character = Convert.ToInt16(Console.ReadLine());
         }
 
+        
         Hero? hero = null;
         switch (character){
             

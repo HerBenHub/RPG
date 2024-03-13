@@ -97,7 +97,7 @@ internal class Program
                 hero = new Hero("Rogue", 80, 80, "penge", "nincs", 22);
                 break;
         }
-        
+        //El kell menteni a hero eredeti változatát!(még nincs elmentve)
         //Local variable!!
         return hero;
         

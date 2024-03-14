@@ -54,8 +54,8 @@ internal class Program
         public void death()
         {
             Console.WriteLine("Meghaltál!");
-            
-            
+            bool fromStart = true;
+
         }
     }
     
@@ -66,15 +66,19 @@ internal class Program
     public class Enemy : Characters
     {
         // private double damage = 0;
-        public Enemy(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti, _level, _canFly)
+        public Enemy(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, 
+            Hero? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti, _level, _canFly)
         {
+            
         }
     }
     
     public class Hero : Characters
     {
-        public Hero(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, Hero? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti, _level, _canFly)
+        public Hero(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage, int _priority, 
+            Hero? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage, _priority, _eredeti, _level, _canFly)
         {
+            
         }
     }
 
@@ -114,10 +118,65 @@ internal class Program
         hero.eredeti = new Hero(hero.name, hero.hp, hero.defense, hero.weapon, hero.armour, hero.damage, hero.priority, null, 1, false);
 
         csapat?.Add(hero);
-
-        return hero;
         
+        return hero;
+    }
 
+    public static Enemy createEnemy(int miniBossInt, bool externalCondition) {
+        Enemy? enemy = null;
+        Random enemyRnd = new Random();
+        int rnd;
+        if (externalCondition) {
+            rnd = miniBossInt;
+        } else {
+            rnd = enemyRnd.Next(7) + 1;
+        }
+        switch (rnd) {
+            case 1:
+                enemy = new Enemy("Goblin", 100, 100, "null", "nincs", 100, 10, null, 1, false);
+                break;
+            case 2:
+                enemy = new Enemy("Rat", 80, 50, "null", "nincs", 40, 7, null, 1, false);
+                break;
+            case 3:
+                enemy = new Enemy("Skeleton", 100, 90, "null", "nincs", 70, 8, null, 1, false);
+                break;
+            case 4:
+                enemy = new Enemy("Orc", 120, 130, "null", "nincs", 140, 11, null, 1, false);
+                break;
+            case 5:
+                enemy = new Enemy("Werewolf", 100, 95, "null", "nincs", 110, 12, null, 1, false);
+                break;
+            case 6:
+                enemy = new Enemy("Spider", 80, 80, "null", "nincs", 60, 7, null, 1, false);
+                break;
+            case 7:
+                enemy = new Enemy("Demon", 140, 130, "null", "nincs", 120, 13, null, 1, false);
+                break;
+        }
+        return enemy;
+    }
+
+    public static Enemy miniBoss()
+    {
+        //Giant spider generate
+        int miniBossInt = 6;
+        bool externalCondition = true;
+        createEnemy(miniBossInt, externalCondition);
+
+        Enemy? giantSpider = createEnemy(miniBossInt, externalCondition);
+        giantSpider.name = "Giant_spider";
+        giantSpider.damage = 150;
+        giantSpider.hp = 140;
+        
+        return giantSpider;
+    }
+
+    public static Enemy mainBoss()
+    {
+        Enemy? mainBoss;
+        mainBoss = new Enemy("Dragon", 180, 160, "null", "nincs", 150, 20, null, 5, true);
+        return mainBoss;
     }
 
     public static void Main(string[] args)

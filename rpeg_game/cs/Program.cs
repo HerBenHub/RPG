@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using Spectre.Console;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using System.Runtime.InteropServices.JavaScript;
 
 namespace MainProgram
 {
@@ -140,30 +141,28 @@ namespace MainProgram
         {
             Enemy? enemy = null;
 
-            switch (chooseEnemy)
-            {
+            switch (chooseEnemy) {
                 case 1:
-                    enemy = new Enemy("Goblin", 100, 100, "null", "nincs", 100, 10, 20, null, 1, false);
+                    enemy = new Enemy("Goblin", 25, 20, "nincs", "nincs", 30, 10, 20, null, 1, false);
                     break;
                 case 2:
-                    enemy = new Enemy("Rat", 80, 50, "null", "nincs", 40, 7, 30, null, 1, false);
+                    enemy = new Enemy("Giant Rat", 20, 50, "nincs", "nincs", 20, 7,30 , null, 1, false);
                     break;
                 case 3:
-                    enemy = new Enemy("Skeleton", 100, 90, "null", "nincs", 70, 8, 20, null, 1, false);
+                    enemy = new Enemy("Giant Spider", 20, 80, "nincs", "nincs", 30, 7, 15, null, 1, false);
                     break;
                 case 4:
-                    enemy = new Enemy("Orc", 120, 130, "null", "nincs", 140, 11, 10, null, 1, false);
+                    enemy = new Enemy("Skeleton", 50, 90, "nincs", "nincs", 70, 8, 20, null, 1, false);
                     break;
                 case 5:
-                    enemy = new Enemy("Werewolf", 100, 95, "null", "nincs", 110, 12, 15, null, 1, false);
+                    enemy = new Enemy("Werewolf", 100, 95, "nincs", "nincs", 90, 12, 15, null, 1, false);
                     break;
                 case 6:
-                    enemy = new Enemy("Spider", 80, 80, "null", "nincs", 60, 7, 30, null, 1, false);
+                    enemy = new Enemy("Orc", 120, 130, "nincs", "nincs", 140, 11, 5, null, 1, false);
                     break;
                 case 7:
-                    enemy = new Enemy("Demon", 140, 130, "null", "nincs", 120, 13, 25, null, 1, false);
+                    enemy = new Enemy("Demon", 140, 100, "nincs", "nincs", 120, 13, 25, null, 1, true);
                     break;
-
             }
 
             return enemy;
@@ -198,22 +197,34 @@ namespace MainProgram
 
         public class Items
         {
-            public void getItems(Hero? hero)
+            public static void getItems(Hero? hero, string weapon, string armour, Dictionary<string, FegyverAdatok>? fegyverek, Dictionary<string, PancelAdatok>? pancelok)//armour file read!!
             {
-                Dictionary<string, FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
-                //Defense, HP, Damage
-
-
+                //Mind a kettő értéket(weapon, armour) be akarja majd rakni a függvény. Opcionálisra kéne megcsinálni
+                //Ketté kell venni a funkciót(equip:weapon, equip:armour)
+                
+                hero.weapon = weapon;
+                
+                if (pancelok[armour].tipus == hero.eredeti.name)
+                {
+                    hero.defense = hero.eredeti.defense;
+                    Console.WriteLine(hero.eredeti.defense);
+                    hero.armour = armour;
+                    //if?
+                    hero.hp = (int)Math.Round(hero.hp * pancelok[armour].ertekek["hp"]);
+                    hero.defense = (int)Math.Round(hero.defense + pancelok[armour].ertekek["defense"]);
+                    hero.damage = (int)Math.Round(hero.damage * pancelok[armour].ertekek["damage"]);
+                    Console.WriteLine(hero.eredeti.defense);
+                    Console.WriteLine(hero.defense);
+                }
             }
 
-            public static string Inventory(Hero? hero)
+            public static List<string> Inventory(Hero? hero, string targy)
             {
                 List<string> inventory = new List<string>();
+                
+                inventory.Add(targy);
 
-                inventory.Add(hero.armour);
-                inventory.Add(hero.weapon);
-
-                return $"Ezek az eszközök vannak nálad:\n Armour: {inventory[0]}\n Weapon: {inventory[1]}";
+                return inventory;
             }
         }
 
@@ -221,6 +232,7 @@ namespace MainProgram
         {
 
             Dictionary<string, FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
+            Dictionary<string, PancelAdatok>? pancelok = JsonOlvaso.PancelLista();
 
             //Console.WriteLine(RitkasagSzamolo.LadaLootGenerate("legendary"));
 
@@ -234,11 +246,13 @@ namespace MainProgram
 
             Hero? seged1 = createCharacter(2);
 
-            Enemy? enemy1 = createEnemy(2, true);
+            Enemy? enemy1 = createEnemy(2);
 
             player.name = "asbvbsa";
-
-            Battles.StartBattle([player, seged1], [enemy1]);
+            
+            Items.getItems(player, "nagypenge", "sima_pancel", fegyverek, pancelok);
+            
+            //Battles.StartBattle([player, seged1], [enemy1]);
 
 
             //Értékek elérése
@@ -264,12 +278,3 @@ namespace MainProgram
         }
     }
 }
-//AZ rpg játék...
-//Feladatok kiosztása
-//Csapatmunka összehozása (mikor, mennyit, mit)
-//Következő: játékmenet kiötletelése (menet közben nagyban módusulhat)
-//teszt
-//Menu mindig lefut egy érték átadás miatt, 
-//Menut megcsinálni a main függvényben
-//Kiválasztjuk a játékost majd ahhoz kapunk bizonyos felszereltségi szintet(armour, weapon, defense rate)
-//Játékmenet

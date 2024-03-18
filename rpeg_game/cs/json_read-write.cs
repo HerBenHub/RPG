@@ -23,7 +23,13 @@ namespace JsonManager
         public Dictionary<string,double>? hatas { get; set; }
 
     }
-
+    public class PancelAdatok
+    {
+        public string? tipus { get; set; }
+        public string? nev { get; set; }
+        public string? ritkasag { get; set; }
+        public Dictionary<string,double>? ertekek { get; set; }//double!!
+    }
     public class RitkasagAdatok
     {
         public string? common { get; set; }
@@ -36,6 +42,16 @@ namespace JsonManager
 
     public class JsonOlvaso
     {
+        public static Dictionary<string,PancelAdatok>? PancelLista()
+        {
+            string fileName = @"json/pancelok.json";
+
+            string jsonString = File.ReadAllText(fileName);
+            Dictionary<string, PancelAdatok>? summary = JsonConvert.DeserializeObject<Dictionary<string, PancelAdatok>>(jsonString);
+            //json felbontása
+            return summary;
+        }
+        
         public static Dictionary<string,FegyverAdatok>? FegyverLista()
         {
             string fileName = @"json/fegyverek.json";
@@ -46,8 +62,8 @@ namespace JsonManager
             //json felbontása
 
             return summary;
-
         }
+        
 
         public static Dictionary<string,List<string>> RitkasagLista(string? tipus)
         {

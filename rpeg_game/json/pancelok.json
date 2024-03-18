@@ -1,0 +1,14 @@
+{
+  "sima_pancel":
+  {
+    "tipus":"Fighter",
+    "nev": "Sima Vas Páncél",
+    "ritkasag":"common",
+    "ertekek":
+    {
+      "defense":15,
+      "hp":1.1,
+      "damage":1.1
+    }
+  }
+}

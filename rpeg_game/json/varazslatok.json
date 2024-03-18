@@ -1,0 +1,53 @@
+{
+    "sebzes_varazs":
+    {
+        "tipus":"buff",
+        "nev": "Extra Sebzés Varázslata",
+        "leiras": "Ez a varázslat 10%-al emeli az elvarázsolt társ sebzését 3 körig.",
+        "ponthasznalat":10,
+        "korhossz":3,
+        "hatas":
+        {
+            "damage":1.1
+        }
+    },
+    "kitartas_varazs":
+    {
+        "tipus":"buff",
+        "nev": "Kitartás Varázslata",
+        "leiras": "Ez a varázslat 20%-al emeli az elvarázsolt társ páncélját és életét 2 körig.",
+        "ponthasznalat":20,
+        "korhossz":2,
+        "hatas":
+        {
+            "defense":1.2,
+            "hp":1.2
+        }
+    },
+    "gyengeseg_atok":
+    {
+        "tipus":"debuff",
+        "nev": "Gyengeség Átka",
+        "leiras": "Ez az átok 10%-al gyengíti az elátkozott elleség páncélját, életét és sebzését 3 körig.",
+        "ponthasznalat":15,
+        "korhossz":3,
+        "hatas":
+        {
+            "defense":0.9,
+            "hp":0.9,
+            "damage":0.9
+        }
+    },
+    "repules_varazs":
+    {
+        "tipus":"buff",
+        "nev": "Repülés Varázsa",
+        "leiras": "Ez az átok felrepteti a kiválasztott társat 5 körig.",
+        "ponthasznalat":20,
+        "korhossz":5,
+        "hatas":
+        {
+            "canFly":1.0
+        }
+    }
+}

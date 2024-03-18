@@ -17,7 +17,7 @@ namespace RitkasagManager
 
             string kapott_ritkasag = "";
 
-            Dictionary<string,List<string>> rit_lista = JsonOlvaso.RitkasagLista(lada_ritkasag);
+            Dictionary<string,List<string>> rit_lista = JsonOlvaso.RitkasagLista();
             //ritkaság lista beolvasása
             Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
             //fegyverlista beolvasása

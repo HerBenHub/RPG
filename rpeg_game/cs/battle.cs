@@ -20,6 +20,7 @@ namespace BattleManager
             // Alap cuccok
 
             Dictionary<string,VarazslatAdatok>? varazslatok = JsonOlvaso.VarazslatLista();
+            Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
             Dictionary<string, Action<Hero,Enemy>> Interact = [];
 
             Hero currentHero = Heroes[0];
@@ -28,6 +29,9 @@ namespace BattleManager
             void Action()
             {
 
+                ////////////////////////////////////////////////////////////////
+                // Kicserélni spectre-consoleos Selection-el
+
                 System.Console.WriteLine("\nChoose action:");
                 foreach (KeyValuePair<string, Action<Hero,Enemy>> action in Interact)
                 {
@@ -35,7 +39,6 @@ namespace BattleManager
                 }
 
                 string chosenAction = System.Console.ReadLine().ToLower();
-                
 
 
                 System.Console.WriteLine("\nChoose character");
@@ -53,6 +56,9 @@ namespace BattleManager
 
                 Interact[chosenAction].Invoke(currentHero, targetedEnemy);
 
+                //
+                ////////////////////////////////////////////////////////////////
+
                 
 
 
@@ -64,9 +70,10 @@ namespace BattleManager
             void PlayerAttack(Hero Player, Enemy Target)
             {
                 Target.hp -= DamageCalculator.HeroToEnemy(Player,Target);
+                Player.points -= fegyverek[Player.weapon].hasznalat;
             }
 
-            void CastSpell(Hero Player, Enemy Target)
+            void CastSpell(Hero Player, Characters Target)
             {
                 int i=0;
                 System.Console.WriteLine("\nChoose spell:");

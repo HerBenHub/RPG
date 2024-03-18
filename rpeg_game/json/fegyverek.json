@@ -1,26 +1,29 @@
 {
     "sima_kard":
     {
-        "tipus":"kard",
+        "tipus":"Fighter",
         "nev": "Sima Kard",
         "sebzes": 5,
         "ritkasag":"common",
+        "hasznalat":10,
         "szoveg":{
             "1":"Mindenki kezd valahol.",
             "2":"Egy hagyományos, vasból kovácsolt kard."
         }
     },
     "nagypenge":{
-        "tipus":"kard",
+        "tipus":"Rogue",
         "nev":"Nagy Penge",
         "sebzes":30,
-        "ritkasag":"rare"
+        "ritkasag":"rare",
+        "hasznalat":10
     },
     "szeltoro":
     {
-        "tipus":"kard",
+        "tipus":"Fighter",
         "nev": "Széltörő",
         "sebzes": 100,
-        "ritkasag":"legendary"
+        "ritkasag":"legendary",
+        "hasznalat":15  
     }
 }

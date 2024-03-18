@@ -197,15 +197,27 @@ namespace MainProgram
 
         public class Items
         {
-            public static void getItems(Hero? hero, string weapon, string armour, Dictionary<string, FegyverAdatok>? fegyverek, Dictionary<string, PancelAdatok>? pancelok)//armour file read!!
+            public static List<string> inventory = new List<string>();
+            public static void EquipSword(Hero? hero, string weapon, Dictionary<string, FegyverAdatok>? fegyverek)
             {
-                //Mind a kettő értéket(weapon, armour) be akarja majd rakni a függvény. Opcionálisra kéne megcsinálni
-                //Ketté kell venni a funkciót(equip:weapon, equip:armour)
+                if (fegyverek[weapon].tipus == hero.eredeti.name)
+                {
+                    inventory.Add(hero.weapon);
+                    inventory.Remove(weapon);
+
+                    hero.weapon = weapon;
+                }
                 
-                hero.weapon = weapon;
-                
+            }
+            public static void EquipArmor(Hero? hero, string armour, Dictionary<string, PancelAdatok>? pancelok)//armour file read!!
+            {
+    
                 if (pancelok[armour].tipus == hero.eredeti.name)
                 {
+
+                    inventory.Add(hero.armour);
+                    inventory.Remove(armour);
+
                     hero.defense = hero.eredeti.defense;
                     Console.WriteLine(hero.eredeti.defense);
                     hero.armour = armour;
@@ -216,15 +228,6 @@ namespace MainProgram
                     Console.WriteLine(hero.eredeti.defense);
                     Console.WriteLine(hero.defense);
                 }
-            }
-
-            public static List<string> Inventory(Hero? hero, string targy)
-            {
-                List<string> inventory = new List<string>();
-                
-                inventory.Add(targy);
-
-                return inventory;
             }
         }
 
@@ -245,14 +248,13 @@ namespace MainProgram
             Hero? player_eredeti = player.eredeti;
 
             Hero? seged1 = createCharacter(2);
-
             Enemy? enemy1 = createEnemy(2);
 
             player.name = "asbvbsa";
+        
+            Items.EquipSword(player, "nagypenge", fegyverek);
             
-            Items.getItems(player, "nagypenge", "sima_pancel", fegyverek, pancelok);
-            
-            //Battles.StartBattle([player, seged1], [enemy1]);
+            Battles.StartBattle([player, seged1], [enemy1]);
 
 
             //Értékek elérése

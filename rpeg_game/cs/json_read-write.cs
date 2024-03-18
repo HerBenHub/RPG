@@ -11,6 +11,7 @@ namespace JsonManager
         public string? nev { get; set; }
         public int sebzes { get; set; }
         public string? ritkasag { get; set; }
+        public int hasznalat { get; set; }
         public Dictionary<string,string>? szoveg { get; set; }
     }
 
@@ -65,7 +66,7 @@ namespace JsonManager
         }
         
 
-        public static Dictionary<string,List<string>> RitkasagLista(string? tipus)
+        public static Dictionary<string,List<string>> RitkasagLista()
         {
 
             string fileName = @"json/ritkasag.json";

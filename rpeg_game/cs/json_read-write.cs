@@ -14,8 +14,13 @@ namespace JsonManager
         public Dictionary<string,string>? szoveg { get; set; }
     }
 
-    public class EllensegAdatok
+    public class VarazslatAdatok
     {
+        public string? tipus { get; set; }
+        public string? nev { get; set; }
+        public string? leiras { get; set; }
+        public int? ponthasznalat { get; set; }
+        public Dictionary<string,double>? hatas { get; set; }
 
     }
 
@@ -63,6 +68,19 @@ namespace JsonManager
             //ezt nem tudom hogy lehetne megcsinálni kevésbé undorítóra :(
 
             return lista;
+
+        }
+
+        public static Dictionary<string,VarazslatAdatok>? VarazslatLista()
+        {
+            string fileName = @"json/varazslatok.json";
+            // https://stackoverflow.com/questions/70440731/
+
+            string jsonString = File.ReadAllText(fileName);
+            Dictionary<string, VarazslatAdatok>? summary = JsonConvert.DeserializeObject<Dictionary<string, VarazslatAdatok>>(jsonString);
+            //json felbontása
+
+            return summary;
 
         }
         

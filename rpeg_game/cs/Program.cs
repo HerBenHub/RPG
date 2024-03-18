@@ -122,49 +122,48 @@ internal class Program
         return hero;
     }
 
-    public static Enemy createEnemy(int miniBossInt, bool externalCondition) {
+    public static Enemy createEnemy(int miniBossInt, bool externalCondition, int chooseEnemy) {
         Enemy? enemy = null;
         Random enemyRnd = new Random();
         int rnd;
         if (externalCondition) {
             rnd = miniBossInt;
         } else {
-            rnd = enemyRnd.Next(7) + 1;
-        }
-        switch (rnd) {
-            case 1:
-                enemy = new Enemy("Goblin", 100, 100, "null", "nincs", 100, 10, null, 1, false);
-                break;
-            case 2:
-                enemy = new Enemy("Rat", 80, 50, "null", "nincs", 40, 7, null, 1, false);
-                break;
-            case 3:
-                enemy = new Enemy("Skeleton", 100, 90, "null", "nincs", 70, 8, null, 1, false);
-                break;
-            case 4:
-                enemy = new Enemy("Orc", 120, 130, "null", "nincs", 140, 11, null, 1, false);
-                break;
-            case 5:
-                enemy = new Enemy("Werewolf", 100, 95, "null", "nincs", 110, 12, null, 1, false);
-                break;
-            case 6:
-                enemy = new Enemy("Spider", 80, 80, "null", "nincs", 60, 7, null, 1, false);
-                break;
-            case 7:
-                enemy = new Enemy("Demon", 140, 130, "null", "nincs", 120, 13, null, 1, false);
-                break;
+            switch (chooseEnemy) {
+                case 1:
+                    enemy = new Enemy("Goblin", 100, 100, "null", "nincs", 100, 10, null, 1, false);
+                    break;
+                case 2:
+                    enemy = new Enemy("Rat", 80, 50, "null", "nincs", 40, 7, null, 1, false);
+                    break;
+                case 3:
+                    enemy = new Enemy("Skeleton", 100, 90, "null", "nincs", 70, 8, null, 1, false);
+                    break;
+                case 4:
+                    enemy = new Enemy("Orc", 120, 130, "null", "nincs", 140, 11, null, 1, false);
+                    break;
+                case 5:
+                    enemy = new Enemy("Werewolf", 100, 95, "null", "nincs", 110, 12, null, 1, false);
+                    break;
+                case 6:
+                    enemy = new Enemy("Spider", 80, 80, "null", "nincs", 60, 7, null, 1, false);
+                    break;
+                case 7:
+                    enemy = new Enemy("Demon", 140, 130, "null", "nincs", 120, 13, null, 1, false);
+                    break;
+            }
         }
         return enemy;
     }
 
-    public static Enemy miniBoss()
+    public static Enemy miniBoss(int chooseEnemy)
     {
         //Giant spider generate
         int miniBossInt = 6;
         bool externalCondition = true;
-        createEnemy(miniBossInt, externalCondition);
+        createEnemy(miniBossInt, externalCondition, chooseEnemy);
 
-        Enemy? giantSpider = createEnemy(miniBossInt, externalCondition);
+        Enemy? giantSpider = createEnemy(miniBossInt, externalCondition, chooseEnemy);
         giantSpider.name = "Giant_spider";
         giantSpider.damage = 150;
         giantSpider.hp = 140;
@@ -177,6 +176,27 @@ internal class Program
         Enemy? mainBoss;
         mainBoss = new Enemy("Dragon", 180, 160, "null", "nincs", 150, 20, null, 5, true);
         return mainBoss;
+    }
+
+    public class Items
+    {
+        public void getItems(Hero? hero)
+        {
+            Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
+            //Defense, HP, Damage
+            
+            
+        }
+
+        public static string Inventory(Hero? hero)
+        {
+            List<string> inventory = new List<string>();
+            
+            inventory.Add(hero.armour);
+            inventory.Add(hero.weapon);
+            
+            return $"Ezek az eszközök vannak nálad:\n Armour: {inventory[0]}\n Weapon: {inventory[1]}";
+        }
     }
 
     public static void Main(string[] args)
@@ -218,12 +238,3 @@ internal class Program
 
     }
 }
-//AZ rpg játék...
-//Feladatok kiosztása
-//Csapatmunka összehozása (mikor, mennyit, mit)
-//Következő: játékmenet kiötletelése (menet közben nagyban módusulhat)
-//teszt
-//Menu mindig lefut egy érték átadás miatt, 
-//Menut megcsinálni a main függvényben
-//Kiválasztjuk a játékost majd ahhoz kapunk bizonyos felszereltségi szintet(armour, weapon, defense rate)
-//Játékmenet

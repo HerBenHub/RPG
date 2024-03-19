@@ -3,11 +3,13 @@ using JsonManager;
 using RitkasagManager;
 using DamageManager;
 using static MainProgram.Program;
-
 using Spectre.Console;
+
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BattleManager
 {
@@ -28,33 +30,34 @@ namespace BattleManager
 
             void Action()
             {
+               
+                
+                var actionPrompt = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("[red]Mit fogsz csinálni?[/]")
+                        .PageSize(3)
+                        .MoreChoicesText("[grey](Move up and down to reveal more fruits)[/]")
+                        .AddChoices(Interact.Select(kvp => kvp.Key).ToList()));
+                
+                
+                
+                // System.Console.WriteLine("\nChoose character");
+                // Int32 chosenCharacter = Int32.Parse(System.Console.ReadLine());
+                // chosenCharacter = Math.Clamp(chosenCharacter,0,Heroes.Length);
+                // currentHero = Heroes[chosenCharacter-1];
+                // System.Console.WriteLine("Selected character: " + currentHero.name);
 
-                ////////////////////////////////////////////////////////////////
-                // Kicserélni spectre-consoleos Selection-el
+                
+                var targetPrompt = AnsiConsole.Prompt(
+                    new SelectionPrompt<Characters>()
+                        .Title("Kit támadsz meg?")
+                        .PageSize(3)
+                        .MoreChoicesText("[grey](Menj lejjebb!)[/]")
+                        .AddChoices(Heroes));
+                
+                
 
-                System.Console.WriteLine("\nChoose action:");
-                foreach (KeyValuePair<string, Action<Hero,Enemy>> action in Interact)
-                {
-                    Console.WriteLine($"> {action.Key}");
-                }
-
-                string chosenAction = System.Console.ReadLine().ToLower();
-
-
-                System.Console.WriteLine("\nChoose character");
-                Int32 chosenCharacter = Int32.Parse(System.Console.ReadLine());
-                chosenCharacter = Math.Clamp(chosenCharacter,0,Heroes.Length);
-                currentHero = Heroes[chosenCharacter-1];
-                System.Console.WriteLine("Selected character: " + currentHero.name);
-
-
-                System.Console.WriteLine("\nChoose enemy to attack");
-                Int32 chosenEnemy = Int32.Parse(System.Console.ReadLine());
-                chosenEnemy = Math.Clamp(chosenEnemy,0,Enemies.Length);
-                targetedEnemy = Enemies[chosenEnemy-1];
-                System.Console.WriteLine("Selected enemy: " + targetedEnemy.name);
-
-                Interact[chosenAction].Invoke(currentHero, targetedEnemy);
+                Interact[actionPrompt].Invoke(currentHero, targetedEnemy);
 
                 //
                 ////////////////////////////////////////////////////////////////

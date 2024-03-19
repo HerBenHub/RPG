@@ -49,13 +49,13 @@ namespace MainProgram
             public void levelUp(Hero? hero)
             {
                 hero.level += 1;
-                hero.damage = hero.damage * 1.1;
-                hero.eredeti.damage = hero.eredeti.damage * 1.1;
-                hero.hp = +10;
+                hero.damage = Math.Round(hero.damage * 1.1,2);
+                hero.eredeti.damage = Math.Round(hero.eredeti.damage * 1.1,2);
+                hero.hp = (int)Math.Round(hero.hp * 1.1);
                 hero.eredeti.hp += 10;
 
-                Math.Round(hero.damage, 2);
-                Math.Round(hero.eredeti.damage, 2);
+                hero.points = (int)Math.Round(hero.points * 1.1);
+                hero.eredeti.points = (int)Math.Round(hero.eredeti.points * 1.1);
 
             }
 
@@ -116,16 +116,16 @@ namespace MainProgram
             {
 
                 case 1:
-                    hero = new Hero("Fighter", 100, 100, "sima_kard", "sima_pancel", 1, 10, 10, null, 1, false);
+                    hero = new Hero("Fighter", 100, 100, "sima_kard", "sima_pancel", 1, 10, 25, null, 1, false);
                     break;
                 case 2:
-                    hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, 10, null, 1, false);
+                    hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, 15, null, 1, false);
                     break;
                 case 3:
-                    hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, 10, null, 1, false);
+                    hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, 15, null, 1, false);
                     break;
                 case 4:
-                    hero = new Hero("Rogue", 80, 80, "penge", "nincs", 1, 22, 10, null, 1, false);
+                    hero = new Hero("Rogue", 80, 80, "penge", "nincs", 1, 22, 25, null, 1, false);
                     break;
             }
 
@@ -220,14 +220,11 @@ namespace MainProgram
                     inventory.Remove(armour);
 
                     hero.defense = hero.eredeti.defense;
-                    Console.WriteLine(hero.eredeti.defense);
                     hero.armour = armour;
                     //if?
                     hero.hp = (int)Math.Round(hero.hp * pancelok[armour].ertekek["hp"]);
                     hero.defense = (int)Math.Round(hero.defense + pancelok[armour].ertekek["defense"]);
                     hero.damage = (int)Math.Round(hero.damage * pancelok[armour].ertekek["damage"]);
-                    Console.WriteLine(hero.eredeti.defense);
-                    Console.WriteLine(hero.defense);
                 }
             }
         }
@@ -254,20 +251,20 @@ namespace MainProgram
             player.name = "asbvbsa";
             Items.inventory.Add("szeltoro");
             
-            Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
-            foreach (string item in Items.inventory)
-            {
-                Console.WriteLine(item);
-            }
+            // Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
+            // foreach (string item in Items.inventory)
+            // {
+            //     Console.WriteLine(item);
+            // }
             
             Items.EquipArmor(player, "nem_sima_pancel", pancelok);
             Items.EquipSword(player, "szeltoro", fegyverek);
 
-            Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
-            foreach (string item in Items.inventory)
-            {
-                Console.WriteLine(item);
-            }
+            // Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
+            // foreach (string item in Items.inventory)
+            // {
+            //     Console.WriteLine(item);
+            // }
             
             // Battles.StartBattle([player, seged1], [enemy1]);
 

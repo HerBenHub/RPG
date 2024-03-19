@@ -4,7 +4,7 @@ using RitkasagManager;
 using DamageManager;
 using static MainProgram.Program;
 using Spectre.Console;
-
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
@@ -30,13 +30,13 @@ namespace BattleManager
 
             void Action()
             {
-               
+                
                 
                 var actionPrompt = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
-                        .Title("[red]Mit fogsz csinálni?[/]")
-                        .PageSize(3)
-                        .MoreChoicesText("[grey](Move up and down to reveal more fruits)[/]")
+                        .Title("[red]Mit fogsz csinálni?[/]")   
+                        .PageSize(5)
+                        .HighlightStyle(new Style(new Color(255,100,100)))
                         .AddChoices(Interact.Select(kvp => kvp.Key).ToList()));
                 
                 
@@ -53,7 +53,7 @@ namespace BattleManager
                         .Title("Kit támadsz meg?")
                         .PageSize(3)
                         .MoreChoicesText("[grey](Menj lejjebb!)[/]")
-                        .AddChoices(Heroes));
+                        .AddChoices(Heroes.ToList()));
                 
                 
 
@@ -126,8 +126,8 @@ namespace BattleManager
             System.Console.WriteLine("--------------------------------------------------");
 
             
-            Interact["attack"] = PlayerAttack;
-            Interact["cast"] = CastSpell;
+            Interact["sima támadás"] = PlayerAttack;
+            Interact["mágia használata"] = CastSpell;
 
 
             int turn = 0;

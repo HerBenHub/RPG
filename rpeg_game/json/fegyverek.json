@@ -1,29 +1,133 @@
 {
-    "sima_kard":
+    "Sima_Kard":
     {
         "tipus":"Fighter",
         "nev": "Sima Kard",
         "sebzes": 5,
         "ritkasag":"common",
         "hasznalat":10,
+        "bonusz":"semmi",
         "szoveg":{
             "1":"Mindenki kezd valahol.",
             "2":"Egy hagyományos, vasból kovácsolt kard."
         }
     },
-    "nagypenge":{
+    "Nagypenge":{
         "tipus":"Rogue",
         "nev":"Nagy Penge",
         "sebzes":30,
         "ritkasag":"rare",
-        "hasznalat":10
+        "hasznalat":10,
+        "bonusz":"2 ellenséget is üthet egyszerre"
     },
-    "szeltoro":
+    "Szeltoro":
     {
         "tipus":"Fighter",
         "nev": "Széltörő",
         "sebzes": 100,
         "ritkasag":"legendary",
-        "hasznalat":15  
+        "hasznalat":15 ,
+        "bonusz":"szélfalat húz fel maga előtt (blokkolja a dmget 1 körig)"
+    },
+
+    "Vasfa_Varazsbot":
+    {
+        "tipus": "Sorcerer",
+        "nev": "Vasfa Varázsbot",
+        "sebzes": 10,
+        "ritkasag": "uncommon",
+        "hasznalat":10,
+        "bonusz": "+5 sebzes goblinokba"
+    },
+
+    "Ezust_tor":
+    {
+        "tipus":"Rogue",
+        "nev":"Ezüst Tőr",
+        "sebzes":15,
+        "ritkasag":"common",
+        "hasznalat":10,
+        "bonusz":"10 sebzes Werewolf-okba",
+        "szoveg":"Egy fegyver amit évszázadokon át használtak Vérfarkasok ellen."
+        
+    },
+
+    "Vihar_Buzogany":
+    {
+        "tipus":"Fighter",
+        "nev":"Vihar Buzogány",
+        "sebzes":20,
+        "ritkasag":"rare",
+        "hasznalat":15,
+        "bonusz":"15 sebzés csontvázakba és démonokba.",
+        "szoveg":"A fegyver eredetéd senki sem tudja, de azt beszélik hogy egy isten keze közül esett ki egy csatában."
+    },
+
+    "Tuzcsova_Kard":
+    {
+        "tipus":"Fighter",
+        "nev":"Tűzcsóva Kard",
+        "sebzes":30,
+        "ritkasag":"epic",
+        "hasznalat":25,
+        "bonusz":"10 sebzés pókokra és patkányokra",
+        "szoveg":"A leghíresebb kovács kovácsolta varázskard, ami lángokba borult."
+    },
+
+    "Fagyos_Ij":
+    {
+        "tipus":"Ranger",
+        "nev":"Fagyos íj",
+        "sebzes":5, 
+        "ritkasag":"rare",
+        "hasznalat":30,
+        "bonusz":"Az ellenségeket megfagyasztja, nem tudnak támadni egy körig(Egy csatában egyszer aktiválható)",
+        "szoveg":"Legmagassabb és leghidegebb hegyről származó íj aminek a nyilait jégcsapokból faragták."
+    },
+
+    "Varazs_gomb":
+    {
+        "tipus":"Sorcerer",
+        "nev":"Varázs gömb",
+        "sebzes":15,
+        "ritkasag":"rare",
+        "hasznalat":15,
+        "bonusz":"10 mana",
+        "szoveg":"Az egyik helyi zsivány a varázslótól lopta, bár ők nem tudják használni."
+    },
+
+    "Arnyek_Kopeny_Penge":
+    {
+        "tipus":"Rogue",
+        "nev":"Árnyék-köpeny Penge",
+        "sebzes":35,
+        "ritkasag":"legendary",
+        "hasznalat":25,
+        "bonusz":"2 ellenséget is üthet egyszerre",
+        "szoveg":"A 'Zsiványok Királya' legbecsesebb ereklyéje amit a haláláig magánál tartott."
+    },
+
+    "Foldrengeto_Kalapacs":
+    {
+        "tipus":"Fighter",
+        "nev":"földrengető Kalapács",
+        "sebzes":50,
+        "ritkasag":"epic",
+        "hasznalat":50,
+        "bonusz":"Elkábítja a közeli ellenségeket, nem támadnak egy körig.(egy csatában csak egyszer aktiválható)",
+        "szoveg":"Vulkán gyomrában edzett erős kalapács."
+    },
+
+    "A_Szent_Megvaltas_Kardja":
+    {
+        "tipus":"Fighter",
+        "nev":"A Szent Megváltás Kardja",
+        "sebzes":100,
+        "ritkasag":"legendary",
+        "hasznalat":100,
+        "bonusz":"20 sebzes élőhalottakba.",
+        "szoveg":"Több ezer generációkon át többszáz isten kovácsolta ezt a kardot, ami mindenen átvág amit lesujtanak vele. Még ez istenek is félnek az erejétől."
     }
+
+
 }

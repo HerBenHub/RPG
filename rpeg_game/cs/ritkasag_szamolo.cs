@@ -8,7 +8,7 @@ namespace RitkasagManager
 
     class RitkasagSzamolo
     {
-        public static string? LadaLootGenerate(string? lada_ritkasag) 
+        public static string? LootGenerate(string? lada_ritkasag) 
         {
             var rand = new Random();
 
@@ -39,8 +39,19 @@ namespace RitkasagManager
                     break;
                 }
             }
-
-            return kapott_ritkasag;
+            
+            List<string> fegyverRitkasag = new List<string>();
+            foreach (var elemek in fegyverek)
+            {
+                if (elemek.Value.ritkasag == kapott_ritkasag)
+                {
+                    fegyverRitkasag.Add(elemek.Key);
+                }
+            }
+            
+            int num = rand.Next(0, fegyverRitkasag.Count);
+            
+            return fegyverRitkasag[num];
         }
     }
 }

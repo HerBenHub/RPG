@@ -116,7 +116,7 @@ namespace MainProgram
             {
 
                 case 1:
-                    hero = new Hero("Fighter", 100, 100, "sima_kard", "nincs", 1, 10, 10, null, 1, false);
+                    hero = new Hero("Fighter", 100, 100, "sima_kard", "sima_pancel", 1, 10, 10, null, 1, false);
                     break;
                 case 2:
                     hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, 10, null, 1, false);
@@ -197,6 +197,7 @@ namespace MainProgram
 
         public class Items
         {
+            public static int penz = 0;
             public static List<string> inventory = new List<string>();
             public static void EquipSword(Hero? hero, string weapon, Dictionary<string, FegyverAdatok>? fegyverek)
             {
@@ -251,10 +252,24 @@ namespace MainProgram
             Enemy? enemy1 = createEnemy(2);
 
             player.name = "asbvbsa";
-        
-            Items.EquipSword(player, "nagypenge", fegyverek);
+            Items.inventory.Add("szeltoro");
             
-            Battles.StartBattle([player, seged1], [enemy1]);
+            Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
+            foreach (string item in Items.inventory)
+            {
+                Console.WriteLine(item);
+            }
+            
+            Items.EquipArmor(player, "nem_sima_pancel", pancelok);
+            Items.EquipSword(player, "szeltoro", fegyverek);
+
+            Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
+            foreach (string item in Items.inventory)
+            {
+                Console.WriteLine(item);
+            }
+            
+            // Battles.StartBattle([player, seged1], [enemy1]);
 
 
             //Értékek elérése

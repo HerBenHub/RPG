@@ -22,5 +22,32 @@
       "hp":1.1,
       "damage":1.1
     }
-  }
+  },
+
+    "tuskevert":
+    {
+      "tipus":"Ranger",
+      "nev": "Tüskevért",
+      "ritkasag":"epic",
+      "ertekek":
+      {
+      "defense":25,
+      "hp":3.1,
+      "damage":5.1
+      }
+    },
+
+    "holtak_vertje":
+    {
+      "tipus":"sorcerer",
+      "nev": "Tüskevért",
+      "ritkasag":"Legendary",
+      "ertekek":
+      {
+      "defense":65,
+      "hp":20.1,
+      "damage":5.1
+      }
+    }
+  
 }

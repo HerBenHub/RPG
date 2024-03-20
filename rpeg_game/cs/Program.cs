@@ -24,12 +24,12 @@ namespace MainProgram
             public string armour;
             public int priority;
             public int points;
-            public Hero? eredeti;
+            public Characters? eredeti;
             public int level;
             public bool canFly;
 
             public Characters(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage,
-                int _priority, int _points, Hero? _eredeti, int _level, bool _canFly)
+                int _priority, int _points, Characters? _eredeti, int _level, bool _canFly)
             {
                 name = _name;
                 hp = _hp;
@@ -76,7 +76,7 @@ namespace MainProgram
             // private double damage = 0;
             public Enemy(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage,
                 int _priority, int _points,
-                Hero? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage,
+                Characters? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage,
                 _priority, _points, _eredeti, _level, _canFly)
             {
 
@@ -87,7 +87,7 @@ namespace MainProgram
         {
             public Hero(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage,
                 int _priority, int _points,
-                Hero? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage,
+                Characters? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage,
                 _priority, _points, _eredeti, _level, _canFly)
             {
 
@@ -96,35 +96,33 @@ namespace MainProgram
 
         static List<Hero>? csapat = new List<Hero>();
 
-        public static Hero? createCharacter(int classnumber = 0)
+        public static Hero? createCharacter(string className = "none")
         {
-            int character = classnumber;
-
-            if (classnumber == 0)
+            if (className == "none")
             {
-                Console.WriteLine("1. Fighter");
-                Console.WriteLine("2. Ranger");
-                Console.WriteLine("3. Sorcerer");
-                Console.WriteLine("4. Rogue");
-                Console.WriteLine("\nAdd meg melyik karakterrel szeretnél lenni!");
-                character = Convert.ToInt16(Console.ReadLine());
+                className = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("Add meg melyik karakterrel szeretnél lenni!")   
+                        .PageSize(5)
+                        .HighlightStyle(new Style(new Color(100,150,100)))
+                        .AddChoices(["Fighter","Ranger","Sorcerer","Rogue"]));
             }
 
 
             Hero? hero = null;
-            switch (character)
+            switch (className)
             {
 
-                case 1:
+                case "Fighter":
                     hero = new Hero("Fighter", 100, 100, "sima_kard", "sima_pancel", 1, 10, 25, null, 1, false);
                     break;
-                case 2:
+                case "Ranger":
                     hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, 15, null, 1, false);
                     break;
-                case 3:
+                case "Sorcerer":
                     hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, 15, null, 1, false);
                     break;
-                case 4:
+                case "Rogue":
                     hero = new Hero("Rogue", 80, 80, "penge", "nincs", 1, 22, 25, null, 1, false);
                     break;
             }
@@ -164,6 +162,8 @@ namespace MainProgram
                     enemy = new Enemy("Demon", 140, 100, "nincs", "nincs", 120, 13, 25, null, 1, true);
                     break;
             }
+
+            enemy.eredeti = new Enemy(enemy.name, enemy.hp, enemy.defense, enemy.weapon, enemy.armour, enemy.damage,enemy.priority, enemy.points, null, enemy.level, enemy.canFly);
 
             return enemy;
         }
@@ -218,13 +218,22 @@ namespace MainProgram
 
                     inventory.Add(hero.armour);
                     inventory.Remove(armour);
+                    
+                    // visszaállítjuk az eredetire
+                    hero.eredeti.hp = (int)Math.Round(hero.eredeti.hp/pancelok[hero.armour].ertekek["hp"]);
+                    hero.eredeti.defense = (int)Math.Round(hero.eredeti.defense-pancelok[hero.armour].ertekek["defense"]);
+                    hero.eredeti.damage = (int)Math.Round(hero.eredeti.damage/pancelok[hero.armour].ertekek["damage"]);
 
-                    hero.defense = hero.eredeti.defense;
                     hero.armour = armour;
-                    //if?
-                    hero.hp = (int)Math.Round(hero.hp * pancelok[armour].ertekek["hp"]);
-                    hero.defense = (int)Math.Round(hero.defense + pancelok[armour].ertekek["defense"]);
-                    hero.damage = (int)Math.Round(hero.damage * pancelok[armour].ertekek["damage"]);
+
+                    // beleszámoljuk az új páncélt
+                    hero.eredeti.hp = (int)Math.Round(hero.eredeti.hp*pancelok[hero.armour].ertekek["hp"]);
+                    hero.eredeti.defense = (int)Math.Round(hero.eredeti.defense+pancelok[hero.armour].ertekek["defense"]);
+                    hero.eredeti.damage = (int)Math.Round(hero.eredeti.damage*pancelok[hero.armour].ertekek["damage"]);
+
+                    hero.hp = hero.eredeti.hp;
+                    hero.defense = hero.eredeti.defense;
+                    hero.damage = hero.eredeti.damage;
                 }
             }
         }
@@ -243,28 +252,28 @@ namespace MainProgram
 
 
             Hero? player = createCharacter();
-            Hero? player_eredeti = player.eredeti;
 
-            Hero? seged1 = createCharacter(2);
+            Hero? seged1 = createCharacter("Ranger");
             Enemy? enemy1 = createEnemy(2);
 
             player.name = "asbvbsa";
             Items.inventory.Add("szeltoro");
+            Items.inventory.Add("nem_sima_pancel");
             
-            // Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
-            // foreach (string item in Items.inventory)
-            // {
-            //     Console.WriteLine(item);
-            // }
+            Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
+            foreach (string item in Items.inventory)
+            {
+                Console.WriteLine(item);
+            }
             
             Items.EquipArmor(player, "nem_sima_pancel", pancelok);
             Items.EquipSword(player, "szeltoro", fegyverek);
 
-            // Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
-            // foreach (string item in Items.inventory)
-            // {
-            //     Console.WriteLine(item);
-            // }
+            Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
+            foreach (string item in Items.inventory)
+            {
+                Console.WriteLine(item);
+            }
             
             // Battles.StartBattle([player, seged1], [enemy1]);
 

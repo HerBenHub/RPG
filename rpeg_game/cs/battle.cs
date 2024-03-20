@@ -23,10 +23,10 @@ namespace BattleManager
 
             Dictionary<string,VarazslatAdatok>? varazslatok = JsonOlvaso.VarazslatLista();
             Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
-            Dictionary<string, Action<Hero,Enemy>> Interact = [];
+            Dictionary<string, Action<Hero,Characters>> Interact = [];
 
             Hero currentHero = Heroes[0];
-            Enemy targetedEnemy = Enemies[0];
+            Characters targetedCharacter = Enemies[0];
 
             void Action()
             {
@@ -34,9 +34,9 @@ namespace BattleManager
                 
                 var actionPrompt = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
-                        .Title("[red]Mit fogsz csinálni?[/]")   
+                        .Title("[cyan3]Mit akarsz csinálni?[/]")   
                         .PageSize(5)
-                        .HighlightStyle(new Style(new Color(255,100,100)))
+                        .HighlightStyle(new Style(new Color(255,100,100),null,Decoration.Italic))
                         .AddChoices(Interact.Select(kvp => kvp.Key).ToList()));
                 
                 
@@ -47,17 +47,31 @@ namespace BattleManager
                 // currentHero = Heroes[chosenCharacter-1];
                 // System.Console.WriteLine("Selected character: " + currentHero.name);
 
+                Dictionary<string,Characters> heroNameSync = new Dictionary<string,Characters>();
+                // Hero tipus szinkronizálása a SelectionPrompt stringjével
                 
-                var targetPrompt = AnsiConsole.Prompt(
-                    new SelectionPrompt<Characters>()
+                SelectionPrompt<string> selpro = new SelectionPrompt<string>()
                         .Title("Kit támadsz meg?")
                         .PageSize(3)
-                        .MoreChoicesText("[grey](Menj lejjebb!)[/]")
-                        .AddChoices(Heroes.ToList()));
+                        .MoreChoicesText("[grey](Menj lejjebb!)[/]");
+
+                foreach (Hero hero in Heroes)
+                {
+                    heroNameSync.Add(hero.name,hero);
+                    selpro.AddChoice(hero.name); 
+                }
+                foreach (Enemy enemy in Enemies)
+                {
+                    heroNameSync.Add(enemy.name,enemy);
+                    selpro.AddChoice(enemy.name); 
+                }
+
+                var targetPrompt = heroNameSync[AnsiConsole.Prompt(selpro)];
+                
                 
                 
 
-                Interact[actionPrompt].Invoke(currentHero, targetedEnemy);
+                Interact[actionPrompt].Invoke(currentHero, targetedCharacter);
 
                 //
                 ////////////////////////////////////////////////////////////////
@@ -70,8 +84,9 @@ namespace BattleManager
             ////////////////////////////////////////////////////////////////
             // Felhasználó választásai
 
-            void PlayerAttack(Hero Player, Enemy Target)
+            void PlayerAttack(Hero Player, Characters Target)
             {
+                System.Console.WriteLine(Target);
                 Target.hp -= DamageCalculator.HeroToEnemy(Player,Target);
                 Player.points -= fegyverek[Player.weapon].hasznalat;
             }
@@ -109,21 +124,30 @@ namespace BattleManager
             ////////////////////////////////////////////////////////////////
             // Csata
 
-            Console.Clear();
-            System.Console.WriteLine("Csata elkezdve!");
-            // irja ki a baratokat
-            System.Console.WriteLine("Társak a csatában:");
-            foreach (Hero hero in Heroes)
+            
+            
+            void Alapok()
             {
-                System.Console.WriteLine($"> {hero.name} ({hero.eredeti.name})");
+                Console.Clear();
+                var rule = new Rule("Csata Folymatban!");   
+                AnsiConsole.Write(rule);
+
+                // irja ki a baratokat
+                AnsiConsole.WriteLine("Társak a csatában:");
+                foreach (Hero hero in Heroes)
+                {
+                    AnsiConsole.Write(new Text($"Ω {hero.name} ({hero.eredeti.name}) > {hero.hp}/{hero.eredeti.hp}\n", new Style( 	new Color(0,215,95))));
+                }
+                // irja ki az ellensegeket
+                AnsiConsole.WriteLine("Ellenségek a csatában:");
+                foreach (Enemy enemy in Enemies)
+                {
+                    AnsiConsole.Write(new Text($"ɸ {enemy.name} > {enemy.hp}/{enemy.eredeti.hp}\n", new Style(new Color(255,135,135))));
+                }
+                AnsiConsole.Write(new Rule());
+
+
             }
-            // irja ki az ellensegeket
-            System.Console.WriteLine("Ellenségek a csatában:");
-            foreach (Enemy enemy in Enemies)
-            {
-                System.Console.WriteLine($"> {enemy.name}");
-            }
-            System.Console.WriteLine("--------------------------------------------------");
 
             
             Interact["sima támadás"] = PlayerAttack;
@@ -136,8 +160,9 @@ namespace BattleManager
             {
                 turn += 1;
 
-                System.Console.WriteLine($"[Turn {turn}]");
+                System.Console.WriteLine($"[{turn}. Kör]");
 
+                Alapok();
                 Action();
 
             };

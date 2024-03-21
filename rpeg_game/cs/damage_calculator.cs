@@ -9,7 +9,7 @@ namespace DamageManager
 {
     class DamageCalculator
     {
-        public static int HeroToEnemy(Hero hero, Characters enemy)
+        public static int HeroAttack(Hero hero, Characters target)
         {
             Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
 
@@ -18,7 +18,7 @@ namespace DamageManager
             // string hasznaltFegyver = hero.weapon.Split(" ")[1];
 
             int baseDamage = fegyverek[hero.weapon].sebzes;
-            int resistance = enemy.defense;
+            int resistance = target.defense;
             double damageMultiplier = hero.damage;
 
             // dobokocka

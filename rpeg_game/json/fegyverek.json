@@ -26,7 +26,7 @@
     {
         "tipus":"Fighter",
         "nev": "Széltörő",
-        "sebzes": 100,
+        "sebzes": 80,
         "ritkasag":"legendary",
         "hasznalat":15,
         "bonusz":"szélfalat húz fel maga előtt (blokkolja a dmget 1 körig)"

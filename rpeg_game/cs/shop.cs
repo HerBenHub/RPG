@@ -51,7 +51,8 @@ namespace ShopManager
                 {"legendary", "150"}
                 
             };
-            
+            ////////////////////////////////////////////////////////////////////////
+            /// return éréke megváltozott és nem tudok hivatkozni?
             List<FegyverAdatok> saveFegyver = new List<FegyverAdatok>();
             for (int i = 0; i < 5; i++)
             {
@@ -150,3 +151,4 @@ namespace ShopManager
         }
     }
 }
+//Hivatkozás!! 59, 67

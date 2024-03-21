@@ -8,7 +8,7 @@ namespace RitkasagManager
 
     class RitkasagSzamolo
     {
-        public static string? LootGenerate(string? lada_ritkasag) 
+        public static string LootGenerate(string? lada_ritkasag) 
         {
             var rand = new Random();
 
@@ -21,6 +21,9 @@ namespace RitkasagManager
             //ritkaság lista beolvasása
             Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
             //fegyverlista beolvasása
+            //Páncélok beolvasása
+            Dictionary<string, PancelAdatok>? pancelok = JsonOlvaso.PancelLista();
+
 
             List<string> adott_ritkasag = rit_lista[lada_ritkasag];
             //a method\eljárásban megadott láda ritkasága
@@ -39,19 +42,41 @@ namespace RitkasagManager
                     break;
                 }
             }
+
+            ////////////////////////////////////////////////////////////////////////////////
+            Random random = new Random();
+            int valaszt = random.Next(1, 2);
+            List<string> fegyver_pancelRitkasag = new List<string>();
             
-            List<string> fegyverRitkasag = new List<string>();
-            foreach (var elemek in fegyverek)
+            if (valaszt == 1)
             {
-                if (elemek.Value.ritkasag == kapott_ritkasag)
+                foreach (var elemek in fegyverek)
                 {
-                    fegyverRitkasag.Add(elemek.Key);
+                    if (elemek.Value.ritkasag == kapott_ritkasag)
+                    {
+                        fegyver_pancelRitkasag.Add(elemek.Key);
+                    }
                 }
             }
+            else if (valaszt == 2)
+            {
+                List<string> pancelRitkasag = new List<string>();
+                foreach (var elemek in fegyverek)
+                {
+                    if (elemek.Value.ritkasag == kapott_ritkasag)
+                    {
+                        pancelRitkasag.Add(elemek.Key);
+                    }
+                }
+
+            }
+
+            int num = rand.Next(fegyver_pancelRitkasag.Count());
             
-            int num = rand.Next(0, fegyverRitkasag.Count);
-            
-            return fegyverRitkasag[num];
+            //A két listát bele kéne rakni úgy egy harmadikba, hogy azt tudjam returnolni, majd ha az egyik allistában
+            //megváltozik valami az rögtön a folyamatok legvégén, a harmadik listában is megváltozzon.
+                
+            return fegyver_pancelRitkasag[num];
         }
     }
 }

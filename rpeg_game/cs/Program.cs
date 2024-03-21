@@ -9,6 +9,7 @@ using Spectre.Console;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Runtime.InteropServices.JavaScript;
+using inventoryManager;
 
 namespace MainProgram
 {
@@ -58,13 +59,6 @@ namespace MainProgram
                 hero.eredeti.points = (int)Math.Round(hero.eredeti.points * 1.1);
 
             }
-
-            public void death()
-            {
-                Console.WriteLine("Meghaltál!");
-                bool fromStart = true;
-
-            }
         }
 
         //Ha ügyesek vagyunk akkor jó lesz. Szóval itt öröklődnek a Character class-ból a
@@ -94,7 +88,7 @@ namespace MainProgram
             }
         }
 
-        static List<Hero>? csapat = new List<Hero>();
+        public static List<Hero>? csapat = new List<Hero>();
 
         public static Hero? createCharacter(string className = "none")
         {
@@ -195,49 +189,6 @@ namespace MainProgram
             return mainBoss;
         }
 
-        public class Items
-        {
-            public static int penz = 0;
-            public static List<string> inventory = new List<string>();
-            public static void EquipSword(Hero? hero, string weapon, Dictionary<string, FegyverAdatok>? fegyverek)
-            {
-                if (fegyverek[weapon].tipus == hero.eredeti.name)
-                {
-                    inventory.Add(hero.weapon);
-                    inventory.Remove(weapon);
-
-                    hero.weapon = weapon;
-                }
-                
-            }
-            public static void EquipArmor(Hero? hero, string armour, Dictionary<string, PancelAdatok>? pancelok)//armour file read!!
-            {
-    
-                if (pancelok[armour].tipus == hero.eredeti.name)
-                {
-
-                    inventory.Add(hero.armour);
-                    inventory.Remove(armour);
-                    
-                    // visszaállítjuk az eredetire
-                    hero.eredeti.hp = (int)Math.Round(hero.eredeti.hp/pancelok[hero.armour].ertekek["hp"]);
-                    hero.eredeti.defense = (int)Math.Round(hero.eredeti.defense-pancelok[hero.armour].ertekek["defense"]);
-                    hero.eredeti.damage = (int)Math.Round(hero.eredeti.damage/pancelok[hero.armour].ertekek["damage"]);
-
-                    hero.armour = armour;
-
-                    // beleszámoljuk az új páncélt
-                    hero.eredeti.hp = (int)Math.Round(hero.eredeti.hp*pancelok[hero.armour].ertekek["hp"]);
-                    hero.eredeti.defense = (int)Math.Round(hero.eredeti.defense+pancelok[hero.armour].ertekek["defense"]);
-                    hero.eredeti.damage = (int)Math.Round(hero.eredeti.damage*pancelok[hero.armour].ertekek["damage"]);
-
-                    hero.hp = hero.eredeti.hp;
-                    hero.defense = hero.eredeti.defense;
-                    hero.damage = hero.eredeti.damage;
-                }
-            }
-        }
-
         public static void Main(string[] args)
         {
 
@@ -274,7 +225,10 @@ namespace MainProgram
             {
                 Console.WriteLine(item);
             }
-            
+
+            viewInventory.Tarhely(csapat);
+            viewInventory.Itemval(csapat);
+
             // Battles.StartBattle([player, seged1], [enemy1]);
 
 

@@ -8,6 +8,7 @@ using MainProgram;
 using JsonManager;
 using RitkasagManager;
 using System.Linq;
+using inventoryManager;
 
 namespace ShopManager
 {
@@ -99,15 +100,15 @@ namespace ShopManager
                 if (tempFegyver.Contains(fegyvalaszt))
                 {
                     FegyverAdatok fegyver = saveFegyver[tempFegyver.IndexOf(fegyvalaszt)];
-                    Program.Items.penz = Program.Items.penz - Int32.Parse(ritkasagok[fegyver.ritkasag]);
+                    inventoryManager.Items.penz = inventoryManager.Items.penz - Int32.Parse(ritkasagok[fegyver.ritkasag]);
                 }
                 else if(tempPancel.Contains(fegyvalaszt))
                 {
                     PancelAdatok pancel = savePancel[tempPancel.IndexOf(fegyvalaszt)];
-                    Program.Items.penz = Program.Items.penz - Int32.Parse(ritkasagok[pancel.ritkasag]);
+                    inventoryManager.Items.penz = inventoryManager.Items.penz - Int32.Parse(ritkasagok[pancel.ritkasag]);
                 }
                 
-                Console.WriteLine("Aktuális összeged: " + MainProgram.Program.Items.penz);
+                Console.WriteLine("Aktuális összeged: " + inventoryManager.Items.penz);
             }
             else
             {
@@ -124,18 +125,18 @@ namespace ShopManager
                 new SelectionPrompt<string>()
                     .PageSize(10)
                     .MoreChoicesText("[grey](Válassz föl vagy le nyillal)[/]")
-                    .AddChoices(MainProgram.Program.Items.inventory));
+                    .AddChoices(inventoryManager.Items.inventory));
             
             if (fegyverek.ContainsKey(kivalaszt))
             {
-                Program.Items.penz += (int)Math.Round(Int32.Parse(ritkasagok[fegyverek[kivalaszt].ritkasag]) * 0.8);
+                inventoryManager.Items.penz += (int)Math.Round(Int32.Parse(ritkasagok[fegyverek[kivalaszt].ritkasag]) * 0.8);
             }
             else if(pancelok.ContainsKey(kivalaszt))
             {
-                Program.Items.penz += (int)Math.Round(Int32.Parse(ritkasagok[pancelok[kivalaszt].ritkasag]) * 0.8);
+                Items.penz += (int)Math.Round(Int32.Parse(ritkasagok[pancelok[kivalaszt].ritkasag]) * 0.8);
             }
             
-            Program.Items.inventory.Remove(kivalaszt);
+            inventoryManager.Items.inventory.Remove(kivalaszt);
             Console.WriteLine("Kiválasztott elem: " + kivalaszt + " eladva!");
         }
         public void  StartShop()
@@ -145,7 +146,7 @@ namespace ShopManager
 
             if (Tartalom() != "Kilépés")
             {
-                MainProgram.Program.Items.inventory.Add(Tartalom());
+                Items.inventory.Add(Tartalom());
                 Console.WriteLine("Megvásárolt eszköz hozzáadva az inventorydhoz!");
             }
         }

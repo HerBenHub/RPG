@@ -12,7 +12,7 @@ namespace JsonManager
         public int sebzes { get; set; }
         public string? ritkasag { get; set; }
         public int hasznalat { get; set; }
-        public Dictionary<string,string>? szoveg { get; set; }
+        public string? szoveg { get; set; }
     }
 
     public class VarazslatAdatok

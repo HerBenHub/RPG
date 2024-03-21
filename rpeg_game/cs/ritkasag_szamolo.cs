@@ -34,7 +34,7 @@ namespace RitkasagManager
                 //akkor kiválasztja az aktuális ritkaságot
                 if (szam <= szamlalo) {
                     kapott_ritkasag = rit_lista.Keys.ToList()[i];
-                    System.Console.WriteLine($"A kiválasztott ({szam}) szám a {szamlalo} tartományában van, így a kiválasztott ritkaság \"{kapott_ritkasag}\"");
+                    // System.Console.WriteLine($"A kiválasztott ({szam}) szám a {szamlalo} tartományában van, így a kiválasztott ritkaság \"{kapott_ritkasag}\"");
                     
                     break;
                 }

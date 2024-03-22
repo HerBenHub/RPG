@@ -22,6 +22,9 @@ namespace DamageManager
             double damageMultiplier = hero.damage;
 
             // dobokocka
+            //Mindig a baseDamage kiszámolása
+            //Egy dobás - max 20
+            //Külön cs file az egészre
 
             int damageNumber = (int)Math.Round((baseDamage * damageMultiplier)/(1.00+(resistance/100)));
 

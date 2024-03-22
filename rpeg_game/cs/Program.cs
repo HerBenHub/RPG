@@ -61,10 +61,6 @@ namespace MainProgram
             }
         }
 
-        //Ha ügyesek vagyunk akkor jó lesz. Szóval itt öröklődnek a Character class-ból a
-        //tulajdonsáhok tovább: Fighter, Enemy osztályba. Ahol csak az adott csoportra jellemző tulajdonságok lesznek
-        //ott lehet látni pluszban még functionoket: public int damage. Mert ez csak az enemy tulajdonsága lesz
-
         public class Enemy : Characters
         {
             // private double damage = 0;
@@ -79,12 +75,14 @@ namespace MainProgram
 
         public class Hero : Characters
         {
+            //Itt private változó, aminek konstruktora a kapcsos zárójelben és Hero()-be is bele kell rakni
             public Hero(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage,
                 int _priority, int _points,
                 Characters? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage,
                 _priority, _points, _eredeti, _level, _canFly)
             {
-
+                //Itt csak a hero konstruktora, ami csak a herora fog vonatkozni
+                
             }
         }
 
@@ -235,7 +233,7 @@ namespace MainProgram
             //Értékek elérése
             //////////////////////////////////////////////////////////
 
-            ///foreach (Hero tars in csapat)
+            // foreach (Hero tars in csapat)
             // {
             //     System.Console.WriteLine(tars.name);
             // }

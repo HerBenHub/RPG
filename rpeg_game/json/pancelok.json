@@ -4,12 +4,14 @@
     "tipus":"Fighter",
     "nev": "Sima Vas Páncél",
     "ritkasag":"common",
+    "szoveg":"Alap katonai kiképzésre való gyakorló páncél, másra nem is jó.",
     "ertekek":
     {
       "defense":0,
       "hp":1,
       "damage":1
     }
+    
   },
   
   "nem_sima_pancel":
@@ -17,6 +19,7 @@
     "tipus":"Fighter",
     "nev": "Nem Sima Vas Páncél",
     "ritkasag":"uncommon",
+    "szoveg":"",
     "ertekek":
     {
       "defense":15,
@@ -30,6 +33,7 @@
     "tipus":"Ranger",
     "nev": "Tüskevért",
     "ritkasag":"epic",
+    "szoveg":"Erre szokták azt mondani hogy 'vissza nyal a fagyi'.",
     "ertekek":
     {
       "defense":30,
@@ -43,6 +47,7 @@
     "tipus":"Sorcerer",
     "nev": "Holtjak Vértje",
     "ritkasag":"legendary",
+    "szoveg":"A holtak erejével megáldott páncél a viselőjét mindentől megvédi cserébe lassan az őrületbe kergeti.",
     "ertekek":
     {
       "defense":65,

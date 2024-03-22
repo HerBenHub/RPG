@@ -11,6 +11,7 @@
       "damage":1
     }
   },
+  
   "nem_sima_pancel":
   {
     "tipus":"Fighter",
@@ -24,30 +25,30 @@
     }
   },
 
-    "tuskevert":
+  "tuskevert":
+  {
+    "tipus":"Ranger",
+    "nev": "Tüskevért",
+    "ritkasag":"epic",
+    "ertekek":
     {
-      "tipus":"Ranger",
-      "nev": "Tüskevért",
-      "ritkasag":"epic",
-      "ertekek":
-      {
-        "defense":30,
-        "hp":1.3,
-        "damage":1.3
-      }
-    },
+      "defense":30,
+      "hp":1.3,
+      "damage":1.3
+    }
+  },
 
-    "holtak_vertje":
+  "holtak_vertje":
+  {
+    "tipus":"Sorcerer",
+    "nev": "Holtjak Vértje",
+    "ritkasag":"legendary",
+    "ertekek":
     {
-      "tipus":"Sorcerer",
-      "nev": "Holtjak Vértje",
-      "ritkasag":"legendary",
-      "ertekek":
-      {
       "defense":65,
       "hp":2,
       "damage":1.5
-      }
     }
-  
+  }
 }
+

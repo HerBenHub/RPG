@@ -20,7 +20,7 @@ namespace JsonManager
         public string? tipus { get; set; }
         public string? nev { get; set; }
         public string? leiras { get; set; }
-        public int? ponthasznalat { get; set; }
+        public int hasznalat { get; set; }
         public Dictionary<string,double>? hatas { get; set; }
 
     }

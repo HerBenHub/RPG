@@ -153,7 +153,7 @@ namespace MainProgram
                     enemy = new Enemy("Orc", 120, 130, "nincs", "nincs", 140, 11, 5, null, 1, false);
                     break;
                 case 7:
-                    enemy = new Enemy("Demon", 140, 100, "nincs", "nincs", 120, 13, 25, null, 1, true);
+                    enemy = new Enemy("Demon", 90, 100, "nincs", "nincs", 120, 13, 25, null, 1, true);
                     break;
             }
 
@@ -205,17 +205,17 @@ namespace MainProgram
             Hero? player = createCharacter();
 
             Hero? seged1 = createCharacter("Ranger");
-            Enemy? enemy1 = createEnemy(2);
+            Enemy? enemy1 = createEnemy(6);
 
             player.name = "asbvbsa";
             Items.inventory.Add("szeltoro");
             Items.inventory.Add("nem_sima_pancel");
             
-            Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
-            foreach (string item in Items.inventory)
-            {
-                Console.WriteLine(item);
-            }
+            // Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
+            // foreach (string item in Items.inventory)
+            // {
+            //     Console.WriteLine(item);
+            // }
             
             Items.EquipArmor(player, "nem_sima_pancel", pancelok);
             Items.EquipSword(player, "szeltoro", fegyverek);

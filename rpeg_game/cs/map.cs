@@ -13,98 +13,116 @@ using MainProgram;
 
 namespace mapGenerate
 {
-    class generateMap
+    public class generateMap
     {
-        public ArrayList genPlaces()
+        public static void genPlaces(
+            Program.Hero? hero, 
+            Program.Enemy? enemy, 
+            Dictionary<Program.Hero, Dictionary<int, int>> placeHero,  
+            Dictionary<Program.Enemy, Dictionary<int, int>> placeEnemy)
         {
-            //Az egész többször is lefuthat, mert mindig új adatok lesznek a listában a clear és az újbeli feltöltés miatt
-            ArrayList genRandoms = new ArrayList();
-            genRandoms.Clear();
-            Random random = new Random();
-            
-            //7 közül választ egyet
-            int randomEnemy = random.Next(1, 7);
-            var enemys = Program.createEnemy(randomEnemy);
-
-            //Random hely, hogy hova rakje be
-            int randomPlaces = random.Next(1, 4);
-            int randomPlacesHero = random.Next(1, 4);
-            
-            genRandoms.Add(enemys);
-            genRandoms.Add(randomPlaces);
-            genRandoms.Add(randomPlacesHero);
-            genRandoms.Add(Program.createCharacter());
-            
-            return genRandoms;
-        }
-        //Indexek
-        //0: enemy
-        //1: Hova rakja be az enemyt
-        public void genMap(ArrayList genRandoms, bool nextMap)
-        {
-            int counter = 0;
-            int firstIndex = (int)genRandoms[1];
-            int secondIndex = (int)genRandoms[2];
-            
-            //Ha a szoba random száma megegyezik az iterécióval akkor ott lesz az enemy
-            //Szobák
-            int szobaSize = 4;
-            int szobaDarab = 4;
-
-            for (int sor = 0; sor < szobaSize; sor++)
+            //Optimalizálni kell az egész csapatra!!!
+            //El kell dönteni, hogy hero vagy enemy pozíciók kellenek e (Jól csináltam?)
+            if (hero != null)
             {
-                for (int square = 0; square < szobaDarab; square++)
-                {
-                    if (firstIndex== szobaDarab)
-                    {
-                        var enemy = genRandoms[0];
-                    }
-
-                    if (secondIndex == szobaDarab)
-                    {
-                        var hero = genRandoms[3];
-                    }
-                    for (int oszlop = 0; oszlop < szobaSize; oszlop++)
-                    {
-                        if (sor == 0 || sor == szobaSize - 1 || oszlop == 0 || oszlop == szobaSize - 1)
-                        {
-                            Console.Write("*");
-                        }
-                        else
-                        {
-                            Console.Write(" ");
-                        }
-                    }
-                    if (square < szobaDarab - 1)
-                    {
-                        Console.Write(" "); 
-                    }
-                }
-                Console.WriteLine();
+                Dictionary<int, int> heroPos = new Dictionary<int, int>();
+                heroPos.Add(5, 5);
+                placeHero.Add(hero, heroPos);
             }
 
-            if (nextMap == true)
+            if (enemy != null)
             {
-                switch (counter)
+                Dictionary<int, int> enemyPos = new Dictionary<int, int>();
+                enemyPos.Add(6, 6);
+                placeEnemy.Add(enemy, enemyPos);
+            }
+            
+        }
+        //Dict-ek deklarálása
+        static Dictionary<Program.Hero, Dictionary<int, int>> placeHero =
+            new Dictionary<Program.Hero, Dictionary<int, int>>();
+
+        static Dictionary<Program.Enemy, Dictionary<int, int>> placeEnemy =
+            new Dictionary<Program.Enemy, Dictionary<int, int>>();
+        
+        public static void genMap<TKey, TValue>(Dictionary<TKey, Dictionary<int, int>> dictionary, 
+            Program.Hero? hero, 
+            Program.Enemy? enemy)
+        {
+            int heroPrintX = 0;
+            int heroPrintY = 0;
+            
+            int enemyPrintX = 0;
+            int enemyPrintY = 0;
+            
+            //Adatok kikérése
+            
+            if (typeof(TKey) == typeof(Program.Hero))
+            {
+                //Itt vizsgálom melyik karakter melyik pozícióban van
+                foreach (var heroChar in placeHero)
                 {
-                    case 4:
-                        break;
+                    //Itt tudom elérni a hero karaktert
+                    //heroChar.Key
+                    foreach (var heroData in heroChar.Value)
+                    {
+                        //Itt érem el a dict-en belüli dict-et
+                        heroPrintX = heroData.Key;
+                        heroPrintY = heroData.Value;
+                    }
                 }
-                //Úgy tűnhet mintha itt is lefutna folyamatosan de nem, mert ha a külső nextMap érték megváltozik
-                //akkor nem lép rá az if ágra
-                genMap(genPlaces(), true);
-                counter++;
+            }
+
+            if (typeof(TKey) == typeof(Program.Enemy))
+            {
+                //Itt vizsgálom melyik karakter melyik pozícióban van
+                foreach (var enemyChar in placeEnemy)
+                {
+                    //Itt tudom elérni a enemy karaktert
+                    //enemyChar.Key
+                    foreach (var enemyData in enemyChar.Value)
+                    {
+                        //Itt érem el a dict-en belüli dict-et
+                        enemyPrintX = enemyData.Key;
+                        enemyPrintY = enemyData.Value;
+                    }
+                }
+            }
+            
+            int sizeX = 5;
+            int sizeY = 5;
+
+            //Szoba, map számának a kiírása
+            Console.WriteLine($"{null} számú pálya");
+            Console.WriteLine($"{null} számú szoba");
+            
+            //Oszlop
+            for (int i = sizeY; i >= 0; i--)
+            {
+                //Sor
+                for (int j = 0; j < sizeX; j++)
+                {
+
+                    //Itt kell megvizsgálnom, hogy hero vagy enemy kirajzolás lesz e, esetleg mindkettő
+                    //Meg kell vizsgálnom, hogy melyik pozícióba szeretném őket kirajzolni
+                    //Mindenkihez tartozik egy x és y adat (a belső (második) ciklusban az indexelés miatt eltérés lehet a pozíció adatoknál)
+                    //Pl.: x = 3, y = 3 --> a valóságban: x = 2, y = 3 (vagy valami ilyesmi, lehet fordítva, most nem tudok tesztelni)
+
+                    if (i == 1 && i == 6)
+                    {
+                        if (j == 1 && j == 5)
+                        {
+                            Console.Write('#');
+                        }
+                    }
+                    
+                }
+                Console.Write("\n");
             }
         }
-
         public void mapManager()
         {
-            for (int i = 0; i < 4; i++)
-            {
-                //nextMap == true --> folyamatosan lefut egymás után az egész
-                genMap(genPlaces(), true);
-                
-            }
+            
         }
     }
 }

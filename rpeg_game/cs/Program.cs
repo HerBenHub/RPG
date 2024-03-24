@@ -3,13 +3,14 @@ using System.Text.Json;
 using JsonManager;
 using RitkasagManager;
 using BattleManager;
-
 using System.Xml.Serialization;
 using Spectre.Console;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Runtime.InteropServices.JavaScript;
 using inventoryManager;
+using mapGenerate;
+using test;
 
 namespace MainProgram
 {
@@ -200,14 +201,14 @@ namespace MainProgram
 
 
 
-            Hero? player = createCharacter();
-
-            Hero? seged1 = createCharacter("Ranger");
-            Enemy? enemy1 = createEnemy(6);
-
-            player.name = "asbvbsa";
-            Items.inventory.Add("szeltoro");
-            Items.inventory.Add("nem_sima_pancel");
+            // Hero? player = createCharacter();
+            //
+            // Hero? seged1 = createCharacter("Ranger");
+            // Enemy? enemy1 = createEnemy(6);
+            //
+            // player.name = "asbvbsa";
+            // Items.inventory.Add("szeltoro");
+            // Items.inventory.Add("nem_sima_pancel");
             
             // Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
             // foreach (string item in Items.inventory)
@@ -215,19 +216,22 @@ namespace MainProgram
             //     Console.WriteLine(item);
             // }
             
-            Items.EquipArmor(player, "nem_sima_pancel", pancelok);
-            Items.EquipSword(player, "szeltoro", fegyverek);
+            // Items.EquipArmor(player, "nem_sima_pancel", pancelok);
+            // Items.EquipSword(player, "szeltoro", fegyverek);
 
-            Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
-            foreach (string item in Items.inventory)
-            {
-                Console.WriteLine(item);
-            }
+            // Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
+            // foreach (string item in Items.inventory)
+            // {
+            //     Console.WriteLine(item);
+            // }
 
-            viewInventory.Tarhely(csapat);
-            viewInventory.Itemval(csapat);
+            //generateMap.genMap();
+            tester.testing();
 
-            // Battles.StartBattle([player, seged1], [enemy1]);
+            // viewInventory.Tarhely(csapat);
+            // viewInventory.Itemval(csapat);
+
+            //Battles.StartBattle([player, seged1], [enemy1]);
 
 
             //Értékek elérése

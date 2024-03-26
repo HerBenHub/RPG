@@ -6,16 +6,25 @@
     "elhagyatott_kard": {
         "felveszed?":"felvenni"
     },
-     "kereskedo": {
-        "beszélj vele.":"Mit árulsz?",
+     "kereskedo1": {
+        "beszélj vele.":"Lépjetek előre, kalandorok! Vessetek egy pillantást a portékáimra, amelyeket a királyság eme oldalán a legjobb anyagokból készítettem.",
         "hagyd ott.":"Viszlát!"
     },
     "csapda":{
         "átugrik":"Megbotlottál és bele estél.",
         "megkerül":"Óvatosan megkerülted a csapdát."
     },
-    "ellensegek":{
-        
+    "kereskedo2":{
+        "beszélj vele.":"Szeretnéd fejleszteni a felszerelésed? Sehol máshol nem találsz jobb minőséget. Higgyétek el, tapasztalt kereskedő vagyok.",
+        "hagyd ott.":"Viszlát!"
+    },
+    "kereskedo3":{
+        "beszélj vele.":"Á, egy igényes vásárló! Engedd meg, hogy bemutassam legújabb szerzeményeimet, amelyek garantáltan növelik a küldetésed élményét.",
+        "hagyd ott.":"Viszlát!"
+    },
+    "kereskedo4":{
+        "beszélj vele.":"Szeretnél eladni néhány zsákmányt a legutóbbi kalandodból? Tisztességes árat ajánlok, nem kell alkudozni.",
+        "hagyd ott.":"Viszlát!"
     }
     
 }

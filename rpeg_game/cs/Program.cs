@@ -110,7 +110,7 @@ namespace MainProgram
                     hero = new Hero("Fighter", 100, 100, "sima_kard", "sima_pancel", 1, 10, 25, null, 1, false);
                     break;
                 case "Ranger":
-                    hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, 15, null, 1, false);
+                    hero = new Hero("Ranger", 80, 80, "fagyos_ij", "nincs", 1, 18, 15, null, 1, false);
                     break;
                 case "Sorcerer":
                     hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, 15, null, 1, false);
@@ -201,12 +201,12 @@ namespace MainProgram
 
 
 
-            // Hero? player = createCharacter();
-            //
-            // Hero? seged1 = createCharacter("Ranger");
-            // Enemy? enemy1 = createEnemy(6);
-            //
-            // player.name = "asbvbsa";
+            Hero? player = createCharacter();
+            
+            Hero? seged1 = createCharacter("Ranger");
+            Enemy? enemy1 = createEnemy(6);
+            
+            player.name = "asbvbsa";
             // Items.inventory.Add("szeltoro");
             // Items.inventory.Add("nem_sima_pancel");
             
@@ -226,12 +226,16 @@ namespace MainProgram
             // }
 
             //generateMap.genMap();
-            tester.testing();
+            // tester.testing();
 
             // viewInventory.Tarhely(csapat);
             // viewInventory.Itemval(csapat);
 
-            //Battles.StartBattle([player, seged1], [enemy1]);
+            Battles.StartBattle([player, seged1], [enemy1]);
+
+
+
+
 
 
             //Értékek elérése

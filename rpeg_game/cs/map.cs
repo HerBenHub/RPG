@@ -144,8 +144,6 @@ namespace mapGenerate
             Console.WriteLine($"{null} számú szoba");
             
             int[,] numbers = new int[sizeY,sizeX];
-            
-                    
                 
         }
         

@@ -9,7 +9,7 @@ namespace DamageManager
 {
     class DamageCalculator
     {
-        public static int HeroAttack(Hero hero, Characters target)
+        public static int HeroAttack(Characters hero, Characters target)
         {
             Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
 

@@ -202,21 +202,20 @@ namespace MainProgram
 
 
             Hero? player = createCharacter();
-            //
+            
             Hero? seged1 = createCharacter("Ranger");
             Enemy? enemy1 = createEnemy(6);
-            //
-            player.name = "asbvbsa";
-            Items.inventory.Add("szeltoro");
-            Items.inventory.Add("nem_sima_pancel");
             
-
+            player.name = "asbvbsa";
+            // Items.inventory.Add("szeltoro");
+            // Items.inventory.Add("nem_sima_pancel");
+            
             // Console.WriteLine($"{player} {player.hp} {player.defense} {player.damage} {player.weapon} {player.armour}");
             // foreach (string item in Items.inventory)
             // {
             //     Console.WriteLine(item);
             // }
-
+            
             // Items.EquipArmor(player, "nem_sima_pancel", pancelok);
             // Items.EquipSword(player, "szeltoro", fegyverek);
 

@@ -21,19 +21,31 @@ namespace mapGenerate
             Dictionary<Program.Hero, Dictionary<int, int>> placeHero,  
             Dictionary<Program.Enemy, Dictionary<int, int>> placeEnemy)
         {
+            //Random helyzetek létrehozása, felosztása a mapon
+            //10 x 10es map esetén
+            Random rnd = new Random();
+            
+            //Map alsó része
+            int randomHeroX = rnd.Next(5, 9);
+            int randomHeroY = rnd.Next(5, 9);
+            
+            //Map felső része
+            int randomEnemyX = rnd.Next(0, 4);
+            int randomEnemyY = rnd.Next(0, 4);
+            
             //Optimalizálni kell az egész csapatra!!!
             //El kell dönteni, hogy hero vagy enemy pozíciók kellenek e (Jól csináltam?)
             if (hero != null)
             {
                 Dictionary<int, int> heroPos = new Dictionary<int, int>();
-                heroPos.Add(5, 5);
+                heroPos.Add(randomHeroX, randomHeroY);
                 placeHero.Add(hero, heroPos);
             }
 
             if (enemy != null)
             {
                 Dictionary<int, int> enemyPos = new Dictionary<int, int>();
-                enemyPos.Add(6, 6);
+                enemyPos.Add(randomEnemyX, randomEnemyY);
                 placeEnemy.Add(enemy, enemyPos);
             }
             
@@ -89,6 +101,41 @@ namespace mapGenerate
                 }
             }
             
+            //Távolság leellenőrzése
+            //Segéd távolság a pitagorasz tételhez
+            double tavolsagX = 0;
+            double tavolsagY = 0;
+            
+            //Fő távolság
+            double tavolsag = 0;
+
+            int referenciaErtek = 5;
+            bool tamadhatosag = false;
+            
+            //Egyenes távolság
+            if (heroPrintX == enemyPrintX)
+            {
+                tavolsagY = Math.Abs(heroPrintY) - Math.Abs(enemyPrintY);
+                tavolsag = tavolsagY;
+            }
+            else if(heroPrintY == enemyPrintY)
+            {
+                tavolsagX = Math.Abs(heroPrintX) - Math.Abs(enemyPrintX);
+                tavolsag = tavolsagX;
+            }
+            //Keresztbe lévő távolság
+            else if(heroPrintX != enemyPrintX && heroPrintY != enemyPrintY)
+            {
+                tavolsag = Math.Sqrt(Math.Pow(tavolsagX, 2) + Math.Pow(tavolsagY, 2));
+            }
+
+            //Távolságon bekül van e
+            if (referenciaErtek <= Math.Round(tavolsag))
+            {
+                tamadhatosag = true;
+            }
+            
+            //Map generálás
             int sizeX = 5;
             int sizeY = 5;
 
@@ -96,33 +143,21 @@ namespace mapGenerate
             Console.WriteLine($"{null} számú pálya");
             Console.WriteLine($"{null} számú szoba");
             
-            //Oszlop
-            for (int i = sizeY; i >= 0; i--)
-            {
-                //Sor
-                for (int j = 0; j < sizeX; j++)
-                {
-
-                    //Itt kell megvizsgálnom, hogy hero vagy enemy kirajzolás lesz e, esetleg mindkettő
-                    //Meg kell vizsgálnom, hogy melyik pozícióba szeretném őket kirajzolni
-                    //Mindenkihez tartozik egy x és y adat (a belső (második) ciklusban az indexelés miatt eltérés lehet a pozíció adatoknál)
-                    //Pl.: x = 3, y = 3 --> a valóságban: x = 2, y = 3 (vagy valami ilyesmi, lehet fordítva, most nem tudok tesztelni)
-
-                    if (i == 1 && i == 6)
-                    {
-                        if (j == 1 && j == 5)
-                        {
-                            Console.Write('#');
-                        }
-                    }
+            int[,] numbers = new int[sizeY,sizeX];
+            
                     
-                }
-                Console.Write("\n");
-            }
+                
         }
+        
         public void mapManager()
         {
             
         }
     }
 }
+//Random lehelyezés (map felső része enemy, alsó része hero)10 x 10es map esetén (felső: [0-4, 0-4],alsó: [5-9, 5-9]) pipa
+//Hero - Enemy távolság kiszámolása (lehet bool érték visszaadása, hogy távolságon belül van-e) pipa
+//Kirajzolás - Xavér
+
+//Mozgás a mapon - pozíciók átírása a mátrixban!!
+//Map manager - melyik map és szoba

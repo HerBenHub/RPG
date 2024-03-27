@@ -4,32 +4,39 @@ namespace test
     {
         public static void testing()
         {
-            int sizeX = 5;
-            int sizeY = 5;
+            int y = 10;
+            int x = 10;
             
-            //Sor
-            for (int i = sizeY; i >= 1; i--)
+            int[,] numbers = new int[y,x];
+            
+            // az alatti for-t berakni egy for-ba ami x-ig megy
+            for (int j = 0; j < y; j++)
             {
-                //Oszlop
-                for (int j = 0; j < sizeX; j++)
+                for (int i = 0; i < x; i++)
                 {
-
-                    //Itt kell megvizsgálnom, hogy hero vagy enemy kirajzolás lesz e, esetleg mindkettő
-                    //Meg kell vizsgálnom, hogy melyik pozícióba szeretném őket kirajzolni
-                    //Mindenkihez tartozik egy x és y adat (a belső (második) ciklusban az indexelés miatt eltérés lehet a pozíció adatoknál)
-                    //Pl.: x = 3, y = 3 --> a valóságban: x = 2, y = 3 (vagy valami ilyesmi, lehet fordítva, most nem tudok tesztelni)
-
-                    if (i == 3 && j == 3)
+                    if (i == 8 && j == 4 || i == 5 && j == 5)
                     {
-                        Console.Write("L ");
+                        Console.Write("# ");
                     }
-                    //Ha ki van rajzolva az "L " akkor már nem kellene kirajzolni az "# "-t
-                    Console.Write("# ");
-                    
+                    else
+                    {
+                        Console.Write($"{numbers[0,i]} ");
+                    }
+
+                    // if (i == 5 && j == 5)
+                    // {
+                    //     Console.Write("# ");
+                    // }
+                    // else
+                    // {
+                    //     Console.Write($"{numbers[0,i]} ");
+                    // }
                 }
+
                 Console.Write("\n");
             }
         }
     }
 }
+
 

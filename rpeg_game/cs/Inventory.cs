@@ -28,6 +28,10 @@ namespace inventoryManager
 
                 hero.weapon = weapon;
             }
+            else
+            {
+                Console.WriteLine("Ez az item nem illeszkedik erre a karakterre!");
+            }
                 
         }
         public static void EquipArmor(Hero? hero, string armour, Dictionary<string, PancelAdatok>? pancelok)//armour file read!!
@@ -54,6 +58,11 @@ namespace inventoryManager
                 hero.hp = hero.eredeti.hp;
                 hero.defense = hero.eredeti.defense;
                 hero.damage = hero.eredeti.damage;
+            }
+            else
+            {
+                Console.WriteLine("Ez az item nem illeszkedik erre a karakterre!");
+                
             }
         }
     }
@@ -145,18 +154,17 @@ namespace inventoryManager
                             .HighlightStyle(new Style(new Color(0, 128, 0)))
                             .AddChoices(heroes));
                     
-                    foreach (var item in Items.inventory)
+                    
+                    if (fegyverek.ContainsKey(invval))
                     {
-                        if (fegyverek.ContainsKey(item))
-                        {
-                            Items.EquipSword(melyik, invval, fegyverek);
-                        }
-                        if (pancelok.ContainsKey(item))
-                        {
-                            Items.EquipArmor(melyik, invval, pancelok);
-
-                        }
+                        Items.EquipSword(melyik, invval, fegyverek);
                     }
+                    if (pancelok.ContainsKey(invval))
+                    {
+                        Items.EquipArmor(melyik, invval, pancelok);
+
+                    }
+                    
                 }
                 else if (csere == "[Red]Nem[/]")
                 {

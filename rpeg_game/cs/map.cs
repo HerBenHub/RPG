@@ -57,15 +57,28 @@ namespace mapGenerate
         static Dictionary<Program.Enemy, Dictionary<int, int>> placeEnemy =
             new Dictionary<Program.Enemy, Dictionary<int, int>>();
         
-        public static void genMap<TKey, TValue>(Dictionary<TKey, Dictionary<int, int>> dictionary, 
+        public static List<int> genMap<TKey, TValue>(Dictionary<TKey, Dictionary<int, int>> dictionary, 
             Program.Hero? hero, 
             Program.Enemy? enemy)
         {
+            List<int> printDatas = new List<int>();
+            
             int heroPrintX = 0;
             int heroPrintY = 0;
             
             int enemyPrintX = 0;
             int enemyPrintY = 0;
+            
+            if (printDatas != null || printDatas == null)
+            {
+                printDatas.Clear();
+                
+                heroPrintX = 0;
+                heroPrintY = 0;
+            
+                enemyPrintX = 0;
+                enemyPrintY = 0;
+            }
             
             //Adatok kikérése
             
@@ -144,7 +157,108 @@ namespace mapGenerate
             Console.WriteLine($"{null} számú szoba");
             
             int[,] numbers = new int[sizeY,sizeX];
-                
+            
+            //Értékek átadása
+            printDatas.Add(heroPrintX);
+            printDatas.Add(heroPrintY);
+            printDatas.Add(enemyPrintX);
+            printDatas.Add(enemyPrintY);
+
+            return printDatas;
+
+        }
+
+        public static void moveChars<TKey, TValue>(Dictionary<TKey, Dictionary<int, int>> dictionary, 
+            Program.Hero? hero, 
+            Program.Enemy? enemy)
+        {
+            int heroPrintX = 0;
+            int heroPrintY = 0;
+            
+            int enemyPrintX = 0;
+            int enemyPrintY = 0;
+            
+            var mozgas = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("Merre szeretnél mozogni?")
+                    .PageSize(10)
+                    .HighlightStyle(new Style(new Color(0, 128, 0)))
+                    .AddChoices("Fel!", "Le!", "Jobbra!", "Balra!")
+                    .AddChoices("[Red]Kilépés[/]"));
+
+            if (mozgas == "Fel!")
+            {
+                if (typeof(TKey) == typeof(Program.Hero))
+                {
+                    //Itt vizsgálom melyik karakter melyik pozícióban van
+                    foreach (var heroChar in placeHero)
+                    {
+                        //Itt tudom elérni a hero karaktert
+                        //heroChar.Key
+                        foreach (var heroData in heroChar.Value)
+                        {
+                            //Itt érem el a dict-en belüli dict-et
+                            heroPrintX = heroData.Key;
+                            heroPrintY -= heroData.Value;
+                        }
+                    }
+                }
+            }
+            else if (mozgas == "Le!")
+            {
+                if (typeof(TKey) == typeof(Program.Hero))
+                {
+                    //Itt vizsgálom melyik karakter melyik pozícióban van
+                    foreach (var heroChar in placeHero)
+                    {
+                        //Itt tudom elérni a hero karaktert
+                        //heroChar.Key
+                        foreach (var heroData in heroChar.Value)
+                        {
+                            //Itt érem el a dict-en belüli dict-et
+                            heroPrintX = heroData.Key;
+                            heroPrintY += heroData.Value;
+                        }
+                    }
+                }
+            }
+            else if (mozgas == "Jobbra!")
+            {
+                if (typeof(TKey) == typeof(Program.Hero))
+                {
+                    //Itt vizsgálom melyik karakter melyik pozícióban van
+                    foreach (var heroChar in placeHero)
+                    {
+                        //Itt tudom elérni a hero karaktert
+                        //heroChar.Key
+                        foreach (var heroData in heroChar.Value)
+                        {
+                            //Itt érem el a dict-en belüli dict-et
+                            heroPrintX += heroData.Key;
+                            heroPrintY = heroData.Value;
+                        }
+                    }
+                }
+            }
+            else if (mozgas == "Balra!")
+            {
+                if (typeof(TKey) == typeof(Program.Hero))
+                {
+                    //Itt vizsgálom melyik karakter melyik pozícióban van
+                    foreach (var heroChar in placeHero)
+                    {
+                        //Itt tudom elérni a hero karaktert
+                        //heroChar.Key
+                        foreach (var heroData in heroChar.Value)
+                        {
+                            //Itt érem el a dict-en belüli dict-et
+                            heroPrintX -= heroData.Key;
+                            heroPrintY = heroData.Value;
+                        }
+                    }
+                }
+            }
+            
         }
         
         public void mapManager()

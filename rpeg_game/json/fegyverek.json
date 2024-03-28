@@ -24,11 +24,12 @@
 
     "szeltoro":
     {
-        "tipus":"Fighter",
+        "tipus":"",
         "nev": "Széltörő",
-        "sebzes": 80,
+        "sebzes": 85,
         "ritkasag":"legendary",
         "hasznalat":15,
+        "szoveg":"Egy ",
         "bonusz":"szélfalat húz fel maga előtt (blokkolja a dmget 1 körig)"
     },
 
@@ -59,7 +60,7 @@
         "ritkasag":"rare",
         "hasznalat":15,
         "bonusz":"15 sebzés csontvázakba és démonokba.",
-        "szoveg":"A fegyver eredetéd senki sem tudja, de azt beszélik hogy egy isten keze közül esett ki egy csatában."
+        "szoveg":"A fegyver eredetét senki sem tudja, de azt beszélik hogy egy isten keze közül esett ki egy csatában."
     },
 
     "tuzcsova_kard":
@@ -101,7 +102,7 @@
         "nev":"Árnyék Penge",
         "sebzes":35,
         "ritkasag":"legendary",
-        "hasznalat":15,
+        "hasznalat":4,
         "bonusz":"2 ellenséget is üthet egyszerre",
         "szoveg":"A 'Zsiványok Királya' legbecsesebb ereklyéje amit a haláláig magánál tartott."
     },
@@ -121,126 +122,110 @@
     {
         "tipus":"Fighter",
         "nev":"A Szent Megváltás Kardja",
-        "sebzes":100,
+        "sebzes":120,
         "ritkasag":"legendary",
-        "hasznalat":50,
+        "hasznalat":25,
         "bonusz":"20 sebzes élőhalottakba.",
-        "szoveg":"Több ezer generációkon át többszáz isten kovácsolta ezt a kardot, ami mindenen átvág amit lesujtanak vele. Még ez istenek is félnek az erejétől."
+        "szoveg":"Több ezer generációkon át többszáz isten kovácsolta ezt a kardot."
     },
 
-    "Vedelmezo_hosszukardja":
+    "vedelmezo_hosszukardja":
     {
         "tipus":"Fighter",
         "nev":"Védelmező hosszúkardja",
         "sebzes":30,
+        "hasznalat":15,
         "ritkasag":"rare",
-        "szoveg":"Egy nemes lovag megbízásából készült ez a hosszúkard, amely a gonosz ellen szolgál, és védő varázslatokkal védi viselőjét."
+        "szoveg":"Egy nemes lovag megbízásából készült ez a hosszúkard, amely a gonosz ellen szolgál."
     },
 
-    "Pajzstoro_buzogany":
+    "pajzstoro_buzogany":
     {
         "tipus":"Fighter",
         "nev":"Pajzstörő buzogány",
         "sebzes":25,
-        "ritkasag":"common",
-        "szoveg":"Egy bosszúszomjas törpe kovács készítette ezt a buzogányt, amely mennydörgő erővel rezonál, és még a legmerevebb védelmet is szétzúzza."
+        "hasznalat":15,
+        "ritkasag":"uncommon",
+        "szoveg":"Egy buzogány amely mennydörgő erővel rezonál, és még a legmerevebb védelmet is szétzúzza."
     },
     
-    "Vadaszpenge":
+    "vadaszij":
     {
         "tipus":"Ranger",
-        "nev":"Vadászpenge",
-        "sebzes":20,
+        "nev":"Vadászíj",
+        "sebzes":15,
+        "hasznalat":10,
         "ritkasag":"common",
-        "szoveg":"Ezt a rövidkardot egy gyorsaságáról híres, mozgékony ranger készítette, és páratlan mozgékonyságot biztosít a viselőjének, lehetővé téve számára, hogy villámgyors csapásokkal száguldozzon a csatatéren."
+        "szoveg":"Ezt az íjat vadászatra használják."
     },
 
-    "Arkanikus_langok_jogara":
+    "langok_jogara":
     {
         "tipus":"Sorcerer",
-        "nev":"Arkanikus lángok jogara",
+        "nev":"Lángok jogara",
         "sebzes":50,
+        "hasznalat":15,
         "ritkasag":"epic",
-        "szoveg":"Ezt a hatalmas erejű varázsló által készített jogart a tűz elemi dühe irányítja, és pusztító pokolvihart szabadít az ellenségre."
+        "szoveg":"Ezt a hatalmas erejű varázsló által készített jogart a tűz elemi dühe irányítja."
     },
 
-    "Uresseg_varazsbotja":
+    "uresseg_varazsbotja":
     {
         "tipus":"Sorcerer",
         "nev":"Üresség Varázsbotja",
-        "sebzes":30,
-        "ritkasag":"rare",
-        "szoveg":"Az üresség esszenciájával átitatva ez a bot a kozmosz láthatatlan erői feletti uralmat biztosítja használójának, aki minden egyes varázslattal a valóságot akarata szerint alakítja."
+        "sebzes":28,
+        "hasznalat":10,
+        "ritkasag":"uncommon",
+        "szoveg":"Ez a bot a kozmosz láthatatlan erei feletti uralmat biztosítja használójának."
     },
 
-    "Kaosz_gomb":
+    "kaosz_gomb":
     {
         "tipus":"Sorcerer",
         "nev":"Káosz gömb",
-        "sebzes":35,
-        "ritkasag":"rare",
-        "szoveg":"Ez a gömb az Abyss kaotikus energiáiból született, és kiszámíthatatlanul szabadítja fel az árkán erő kitöréseit, minden egyes kaotikus hullámmal pusztítást végezve a csatatéren."
+        "sebzes":100,
+        "hasznalat":25,
+        "ritkasag":"legendary",
+        "szoveg":"Ez a gömb az Abyss kaotikus energiáiból született, kiszámíthatatlanul viselkedik."
     },
 
-    "Frostbite_palca":
+    "fagyás_palca":
     {
         "tipus":"Sorcerer",
-        "nev":"Frostbite pálca",
+        "nev":"Fagyás Pálca",
         "sebzes":45,
+        "hasznalat":15,
         "ritkasag":"epic",
-        "szoveg":"Ez a gleccser jeges szívéből faragott pálca a tél keserű hidegét hasznosítja, és minden egyes fagyos varázslattal megfagyasztja az ellenséget."
+        "szoveg":"Ez a gleccser jeges szívéből faragott pálca a tél keserű hidegét hasznosítja."
     },
 
-    "Vihar_jogar":
+    "vihar_jogar":
     {
         "tipus":"Sorcerer",
         "nev":"Vihar Jogar",
         "sebzes":40,
+        "hasznalat":15,
         "ritkasag":"rare",
-        "szoveg":"A vihar szívében kovácsolt bot elektromos energiával pattog, és villámokat szabadít fel, amelyek átszakítják az eget, és pusztító erővel sújtanak le az ellenségre."
+        "szoveg":"A vihar szívében kovácsolt bot elektromos energiával pattog, és villámokat szabadít fel."
     },
 
-    "halk_suttogo_tor":
+    "tompitott_ij":
     {
-        "tipus":"Rogue",
-        "nev":"halk suttogó tőr",
-        "sebzes":20,
-        "ritkasag":"common",
-        "szoveg":"Ezt a tőrt egy mestergyilkos készítette, akiről azt suttogják, hogy árnyék az éjszakában, és halálos pontossággal csap le, néma suttogása csalhatatlanul vezeti a létfontosságú pontokra."
+        "tipus":"Ranger",
+        "nev":"Tompított Íj",
+        "sebzes":25,
+        "hasznalat":15,
+        "ritkasag":"uncommon",
+        "szoveg":"Ennek az íjnak a hangja erősen gyengítve lett."
     },
 
-    "Az_arnyak_pengeje":
+    "az_arnyak_ija":
     {
-        "tipus":"Rogue",
-        "nev":"Az árnyak pengéje",
-        "sebzes":70,
+        "tipus":"Ranger",
+        "nev":"Az Árnyak Íja",
+        "sebzes":85,
+        "hasznalat":15,
         "ritkasag":"legendary",
-        "szoveg":"Ezt a pengét a mélységben kovácsolta egy gazember, aki a sötétséggel táncolt, és az árnyakból merít erőt, félelmet keltve azok szívében, akik szembe mernek szállni vele."
-    },
-
-    "":
-    {
-        "tipus":"Rogue",
-        "nev":,
-        "sebzes":,
-        "ritkasag":,
-        "szoveg":
-    },
-
-    "":
-    {
-        "tipus":"Rogue",
-        "nev":,
-        "sebzes":,
-        "ritkasag":,
-        "szoveg":
-    },
-
-
-
-
-    
-
-    
-
+        "szoveg":"Ennek az íjnak minden nyila váratlan irányokból támad, bárhonnan is lett kilőve."
+    }
 }

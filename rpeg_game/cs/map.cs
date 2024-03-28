@@ -151,10 +151,6 @@ namespace mapGenerate
             //Map generálás
             int sizeX = 5;
             int sizeY = 5;
-
-            //Szoba, map számának a kiírása
-            Console.WriteLine($"{null} számú pálya");
-            Console.WriteLine($"{null} számú szoba");
             
             int[,] numbers = new int[sizeY,sizeX];
             
@@ -261,15 +257,36 @@ namespace mapGenerate
             
         }
         
-        public void mapManager()
+        public void mapManager<TKey, TValue>(Dictionary<TKey, Dictionary<int, int>> dictionary, 
+            Program.Hero? hero, 
+            Program.Enemy? enemy)
         {
+            int palyaSzam = 1;
+            int szobaSzam = 1;
             
+            while (true)
+            {
+                //genMap függvény meghívása
+                
+                //Szoba, map számának a kiírása
+                Console.WriteLine($"{palyaSzam} számú pálya");
+                Console.WriteLine($"{szobaSzam} számú szoba");
+
+                if (szobaSzam == 4)
+                {
+                    palyaSzam++;
+                    szobaSzam = 1;
+                }
+                
+                if (palyaSzam == 4)
+                {
+                    Console.WriteLine("Játék vége!");
+                    break;
+                }
+                szobaSzam++;
+            }
         }
     }
 }
-//Random lehelyezés (map felső része enemy, alsó része hero)10 x 10es map esetén (felső: [0-4, 0-4],alsó: [5-9, 5-9]) pipa
-//Hero - Enemy távolság kiszámolása (lehet bool érték visszaadása, hogy távolságon belül van-e) pipa
-//Kirajzolás - Xavér
 
-//Mozgás a mapon - pozíciók átírása a mátrixban!!
 //Map manager - melyik map és szoba

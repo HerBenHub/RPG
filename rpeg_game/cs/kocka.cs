@@ -8,8 +8,11 @@ namespace Kocka
         {
             
             //Csak példa, hogy ne legyen error
-            int kapottSzam = 0;
-            return kapottSzam;
+            //int kapottSzam = 0;
+            //return kapottSzam; 
+
+            Random roll = new Random();
+            int Dobas = roll.Next(1,21);
         }
     }
 }

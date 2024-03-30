@@ -13,6 +13,8 @@ namespace Kocka
 
             Random roll = new Random();
             int Dobas = roll.Next(1,21);
+
+            return Dobas;
         }
     }
 }

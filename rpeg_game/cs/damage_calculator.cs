@@ -9,44 +9,54 @@ namespace DamageManager
 {
     class DamageCalculator
     {
-        public static int HeroAttack(Characters hero, Characters target)
+        public static int BasicAttack(Characters attacker, Characters target)
         {
+
             Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
 
-            // módosítók
-            // string modosito = hero.weapon.Split(" ")[0];
-            // string hasznaltFegyver = hero.weapon.Split(" ")[1];
-
-            int baseDamage = fegyverek[hero.weapon].sebzes;
             int resistance = target.defense;
-            double damageMultiplier = hero.damage;
+            double damageMultiplier = attacker.damage;
 
-            // dobokocka
-            //Mindig a baseDamage kiszámolása
-            //Egy dobás - max 20
-            //Külön cs file az egészre
+            int damageNumber = 0; // várakozik a számolásra
 
-            int damageNumber = (int)Math.Round((baseDamage * damageMultiplier)/(1.00+(resistance/100)));
+            if (attacker.GetType() == typeof(Hero))
+            {
+                
 
+                // módosítók
+                // string modosito = hero.weapon.Split(" ")[0];
+                // string hasznaltFegyver = hero.weapon.Split(" ")[1];
+
+
+                int baseDamage = fegyverek[attacker.weapon].sebzes;
+                
+
+                attacker.points -= fegyverek[attacker.weapon].hasznalat;
+
+                // dobokocka
+                //Mindig a baseDamage kiszámolása
+                //Egy dobás - max 20
+                //Külön cs file az egészre
+
+                damageNumber = (int)Math.Round((baseDamage * damageMultiplier)/(1.00+(resistance/100)));
+            }
+
+
+            if (attacker.GetType() == typeof(Enemy))
+            {
+                attacker.points -= 10;
+
+                // dobokocka
+                //Mindig a baseDamage kiszámolása
+                //Egy dobás - max 20
+                //Külön cs file az egészre
+
+                damageNumber = (int)Math.Round(attacker.damage/(1.00+(resistance/100)));
+            }
+                
             return damageNumber;
         }
 
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-
-        public static int EnemyToHero(Enemy enemy, Hero hero)
-        {
-            // Dictionary<string,FegyverAdatok>? fegyverek = JsonOlvaso.FegyverLista();
-
-            int resistance = hero.defense;
-            double damage = enemy.damage;
-            
-
-            // dobokocka
-
-            int damageNumber = (int)Math.Round(damage/(1.00+(resistance/100)));
-
-            return damageNumber;
-        }
     }
+    
 }

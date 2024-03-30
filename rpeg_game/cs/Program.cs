@@ -29,9 +29,10 @@ namespace MainProgram
             public Characters? eredeti;
             public int level;
             public bool canFly;
+            public int range;
 
             public Characters(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage,
-                int _priority, int _points, Characters? _eredeti, int _level, bool _canFly)
+                int _priority, int _points, Characters? _eredeti, int _level, bool _canFly, int _range)
             {
                 name = _name;
                 hp = _hp;
@@ -44,6 +45,7 @@ namespace MainProgram
                 points = _points;
                 level = _level;
                 canFly = _canFly;
+                range = _range;
 
             }
 
@@ -67,8 +69,8 @@ namespace MainProgram
             // private double damage = 0;
             public Enemy(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage,
                 int _priority, int _points,
-                Characters? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage,
-                _priority, _points, _eredeti, _level, _canFly)
+                Characters? _eredeti, int _level, bool _canFly, int _range) : base(_name, _hp, _defense, _weapon, _armour, _damage,
+                _priority, _points, _eredeti, _level, _canFly, _range)
             {
 
             }
@@ -79,8 +81,8 @@ namespace MainProgram
             //Itt private változó, aminek konstruktora a kapcsos zárójelben és Hero()-be is bele kell rakni
             public Hero(string _name, int _hp, int _defense, string _weapon, string _armour, double _damage,
                 int _priority, int _points,
-                Characters? _eredeti, int _level, bool _canFly) : base(_name, _hp, _defense, _weapon, _armour, _damage,
-                _priority, _points, _eredeti, _level, _canFly)
+                Characters? _eredeti, int _level, bool _canFly, int _range) : base(_name, _hp, _defense, _weapon, _armour, _damage,
+                _priority, _points, _eredeti, _level, _canFly, _range)
             {
                 //Itt csak a hero konstruktora, ami csak a herora fog vonatkozni
                 
@@ -107,21 +109,21 @@ namespace MainProgram
             {
 
                 case "Fighter":
-                    hero = new Hero("Fighter", 100, 100, "sima_kard", "sima_pancel", 1, 10, 25, null, 1, false);
+                    hero = new Hero("Fighter", 100, 100, "sima_kard", "sima_pancel", 1, 10, 25, null, 1, false, 1);
                     break;
                 case "Ranger":
-                    hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, 15, null, 1, false);
+                    hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, 15, null, 1, false, 15);
                     break;
                 case "Sorcerer":
-                    hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, 15, null, 1, false);
+                    hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, 15, null, 1, false, 10);
                     break;
                 case "Rogue":
-                    hero = new Hero("Rogue", 80, 80, "penge", "nincs", 1, 22, 25, null, 1, false);
+                    hero = new Hero("Rogue", 80, 80, "penge", "nincs", 1, 22, 25, null, 1, false, 2);
                     break;
             }
 
             hero.eredeti = new Hero(hero.name, hero.hp, hero.defense, hero.weapon, hero.armour, hero.damage,
-                hero.priority, hero.points, null, 1, false);
+                hero.priority, hero.points, null, 1, false,hero.range);
 
             csapat?.Add(hero);
 
@@ -134,29 +136,29 @@ namespace MainProgram
 
             switch (chooseEnemy) {
                 case 1:
-                    enemy = new Enemy("Goblin", 25, 20, "nincs", "nincs", 30, 10, 20, null, 1, false);
+                    enemy = new Enemy("Goblin", 25, 20, "nincs", "nincs", 30, 10, 20, null, 1, false, 1);
                     break;
                 case 2:
-                    enemy = new Enemy("Giant Rat", 20, 50, "nincs", "nincs", 20, 7,30 , null, 1, false);
+                    enemy = new Enemy("Giant Rat", 20, 50, "nincs", "nincs", 20, 7,30 , null, 1, false, 1);
                     break;
                 case 3:
-                    enemy = new Enemy("Giant Spider", 20, 80, "nincs", "nincs", 30, 7, 15, null, 1, false);
+                    enemy = new Enemy("Giant Spider", 20, 80, "nincs", "nincs", 30, 7, 15, null, 1, false, 1);
                     break;
                 case 4:
-                    enemy = new Enemy("Skeleton", 50, 90, "nincs", "nincs", 70, 8, 20, null, 1, false);
+                    enemy = new Enemy("Skeleton", 50, 90, "nincs", "nincs", 70, 8, 20, null, 1, false, 10);
                     break;
                 case 5:
-                    enemy = new Enemy("Werewolf", 100, 95, "nincs", "nincs", 90, 12, 15, null, 1, false);
+                    enemy = new Enemy("Werewolf", 100, 95, "nincs", "nincs", 90, 12, 15, null, 1, false, 1);
                     break;
                 case 6:
-                    enemy = new Enemy("Orc", 120, 130, "nincs", "nincs", 140, 11, 5, null, 1, false);
+                    enemy = new Enemy("Orc", 120, 130, "nincs", "nincs", 140, 11, 5, null, 1, false, 1);
                     break;
                 case 7:
-                    enemy = new Enemy("Demon", 90, 100, "nincs", "nincs", 120, 13, 25, null, 1, true);
+                    enemy = new Enemy("Demon", 90, 100, "nincs", "nincs", 120, 13, 25, null, 1, true, 8);
                     break;
             }
 
-            enemy.eredeti = new Enemy(enemy.name, enemy.hp, enemy.defense, enemy.weapon, enemy.armour, enemy.damage,enemy.priority, enemy.points, null, enemy.level, enemy.canFly);
+            enemy.eredeti = new Enemy(enemy.name, enemy.hp, enemy.defense, enemy.weapon, enemy.armour, enemy.damage,enemy.priority, enemy.points, null, enemy.level, enemy.canFly, enemy.range);
 
             return enemy;
         }
@@ -184,7 +186,7 @@ namespace MainProgram
         public static Enemy mainBoss()
         {
             Enemy? mainBoss;
-            mainBoss = new Enemy("Dragon", 300, 160, "nincs", "nincs", 150, 20, 10, null, 5, true);
+            mainBoss = new Enemy("Dragon", 300, 160, "nincs", "nincs", 150, 20, 10, null, 5, true, 15);
             return mainBoss;
         }
 
@@ -226,7 +228,9 @@ namespace MainProgram
             // }
 
             //generateMap.genMap();
-            tester.testing();
+            // tester.testing();
+            
+            
 
             // viewInventory.Tarhely(csapat);
             // viewInventory.Itemval(csapat);

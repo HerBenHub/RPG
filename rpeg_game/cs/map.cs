@@ -10,256 +10,250 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Runtime.InteropServices.JavaScript;
 using MainProgram;
+using System.Windows;
+using System.Drawing;
+
 
 namespace mapGenerate
 {
     public class generateMap
     {
-        public static void genPlaces(
-            Program.Hero? hero, 
-            Program.Enemy? enemy, 
-            Dictionary<Program.Hero, Dictionary<int, int>> placeHero,  
-            Dictionary<Program.Enemy, Dictionary<int, int>> placeEnemy)
+        //Dict deklarálása
+        static Dictionary<Program.Characters, Dictionary<int, int>> placeChars =
+            new Dictionary<Program.Characters, Dictionary<int, int>>();
+        
+        static int sizeX = 10;
+        static int sizeY = 10;
+        
+        private static void genPlaces(Program.Characters chars)
         {
-            //Random helyzetek létrehozása, felosztása a mapon
-            //10 x 10es map esetén
             Random rnd = new Random();
             
-            //Map alsó része
-            int randomHeroX = rnd.Next(5, 9);
-            int randomHeroY = rnd.Next(5, 9);
+            int randomCharX = 0;
+            int randomCharY = 0;
             
-            //Map felső része
-            int randomEnemyX = rnd.Next(0, 4);
-            int randomEnemyY = rnd.Next(0, 4);
-            
-            //Optimalizálni kell az egész csapatra!!!
-            //El kell dönteni, hogy hero vagy enemy pozíciók kellenek e (Jól csináltam?)
-            if (hero != null)
+            if (placeChars.Keys.GetType() == typeof(Program.Enemy))
             {
-                Dictionary<int, int> heroPos = new Dictionary<int, int>();
-                heroPos.Add(randomHeroX, randomHeroY);
-                placeHero.Add(hero, heroPos);
+                //Map alsó része
+                randomCharX = rnd.Next(sizeX - sizeX / 2, sizeY - 1);
+                randomCharY = rnd.Next(sizeX - sizeX / 2, sizeY - 1);
             }
 
-            if (enemy != null)
+            else if (placeChars.Keys.GetType() == typeof(Program.Hero))
             {
-                Dictionary<int, int> enemyPos = new Dictionary<int, int>();
-                enemyPos.Add(randomEnemyX, randomEnemyY);
-                placeEnemy.Add(enemy, enemyPos);
+                //Map alsó része
+                randomCharX = rnd.Next(sizeX - sizeX, (sizeY / 2) - 1);
+                randomCharY = rnd.Next(sizeX - sizeY, (sizeY / 2) - 1);
             }
+            
+            if (placeChars != null)
+            {
+                Dictionary<int, int> charPos = new Dictionary<int, int>();
+                charPos.Add(randomCharX, randomCharY);
+                placeChars.Add(chars, charPos);
+            }
+        }
+        
+        public class MainWindow : Window 
+        {
+            public MainWindow()
+            {
+                InitializeComponent();
+                DrawSquareWithCharacter();
+            }
+        }
+        
+
+        private static void DrawSquareWithCharacter()
+        {
             
         }
-        //Dict-ek deklarálása
-        static Dictionary<Program.Hero, Dictionary<int, int>> placeHero =
-            new Dictionary<Program.Hero, Dictionary<int, int>>();
-
-        static Dictionary<Program.Enemy, Dictionary<int, int>> placeEnemy =
-            new Dictionary<Program.Enemy, Dictionary<int, int>>();
-        
-        public static List<int> genMap<TKey, TValue>(Dictionary<TKey, Dictionary<int, int>> dictionary, 
-            Program.Hero? hero, 
-            Program.Enemy? enemy)
+        private static void getPlaces(Program.Characters chars)
         {
-            List<int> printDatas = new List<int>();
-            
-            int heroPrintX = 0;
-            int heroPrintY = 0;
-            
-            int enemyPrintX = 0;
-            int enemyPrintY = 0;
-            
-            if (printDatas != null || printDatas == null)
-            {
-                printDatas.Clear();
-                
-                heroPrintX = 0;
-                heroPrintY = 0;
-            
-                enemyPrintX = 0;
-                enemyPrintY = 0;
-            }
+            int charPrintX = 0;
+            int charPrintY = 0;
             
             //Adatok kikérése
             
-            if (typeof(TKey) == typeof(Program.Hero))
+            
+            //Itt vizsgálom melyik karakter melyik pozícióban van
+            foreach (var charChar in placeChars)
             {
-                //Itt vizsgálom melyik karakter melyik pozícióban van
-                foreach (var heroChar in placeHero)
+                //Itt tudom elérni a hero karaktert pl
+                //heroChar.Key
+                foreach (var charData in charChar.Value)
                 {
-                    //Itt tudom elérni a hero karaktert
-                    //heroChar.Key
-                    foreach (var heroData in heroChar.Value)
+                    //Itt érem el a dict-en belüli dict-et
+                    charPrintX = charData.Key;
+                    charPrintY = charData.Value;
+
+                    if (placeChars.Keys.GetType() == typeof(Program.Hero))
                     {
-                        //Itt érem el a dict-en belüli dict-et
-                        heroPrintX = heroData.Key;
-                        heroPrintY = heroData.Value;
+                        Rectangle character = new Rectangle();
+                        character.Width = 20;
+                        character.Height = 20;
+                        character.Fill = Brushes.Blue;
+                        double characterLeft = x * (canvas.Width / sizeX);
+                        double characterTop = y * (canvas.Height / sizeY);
+                        Canvas.SetLeft(character, characterLeft);
+                        Canvas.SetTop(character, characterTop);
+                        canvas.Children.Add(character);
                     }
-                }
-            }
-
-            if (typeof(TKey) == typeof(Program.Enemy))
-            {
-                //Itt vizsgálom melyik karakter melyik pozícióban van
-                foreach (var enemyChar in placeEnemy)
-                {
-                    //Itt tudom elérni a enemy karaktert
-                    //enemyChar.Key
-                    foreach (var enemyData in enemyChar.Value)
+                    else if (placeChars.Keys.GetType() == typeof(Program.Enemy))
                     {
-                        //Itt érem el a dict-en belüli dict-et
-                        enemyPrintX = enemyData.Key;
-                        enemyPrintY = enemyData.Value;
-                    }
-                }
-            }
-            
-            //Távolság leellenőrzése
-            //Segéd távolság a pitagorasz tételhez
-            double tavolsagX = 0;
-            double tavolsagY = 0;
-            
-            //Fő távolság
-            double tavolsag = 0;
-
-            int referenciaErtek = 5;
-            bool tamadhatosag = false;
-            
-            //Egyenes távolság
-            if (heroPrintX == enemyPrintX)
-            {
-                tavolsagY = Math.Abs(heroPrintY) - Math.Abs(enemyPrintY);
-                tavolsag = tavolsagY;
-            }
-            else if(heroPrintY == enemyPrintY)
-            {
-                tavolsagX = Math.Abs(heroPrintX) - Math.Abs(enemyPrintX);
-                tavolsag = tavolsagX;
-            }
-            //Keresztbe lévő távolság
-            else if(heroPrintX != enemyPrintX && heroPrintY != enemyPrintY)
-            {
-                tavolsag = Math.Sqrt(Math.Pow(tavolsagX, 2) + Math.Pow(tavolsagY, 2));
-            }
-
-            //Távolságon bekül van e
-            if (referenciaErtek <= Math.Round(tavolsag))
-            {
-                tamadhatosag = true;
-            }
-            
-            //Map generálás
-            int sizeX = 5;
-            int sizeY = 5;
-            
-            int[,] numbers = new int[sizeY,sizeX];
-            
-            //Értékek átadása
-            printDatas.Add(heroPrintX);
-            printDatas.Add(heroPrintY);
-            printDatas.Add(enemyPrintX);
-            printDatas.Add(enemyPrintY);
-
-            return printDatas;
-
-        }
-
-        public static void moveChars<TKey, TValue>(Dictionary<TKey, Dictionary<int, int>> dictionary, 
-            Program.Hero? hero, 
-            Program.Enemy? enemy)
-        {
-            int heroPrintX = 0;
-            int heroPrintY = 0;
-            
-            int enemyPrintX = 0;
-            int enemyPrintY = 0;
-            
-            var mozgas = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("Merre szeretnél mozogni?")
-                    .PageSize(10)
-                    .HighlightStyle(new Style(new Color(0, 128, 0)))
-                    .AddChoices("Fel!", "Le!", "Jobbra!", "Balra!")
-                    .AddChoices("[Red]Kilépés[/]"));
-
-            if (mozgas == "Fel!")
-            {
-                if (typeof(TKey) == typeof(Program.Hero))
-                {
-                    //Itt vizsgálom melyik karakter melyik pozícióban van
-                    foreach (var heroChar in placeHero)
-                    {
-                        //Itt tudom elérni a hero karaktert
-                        //heroChar.Key
-                        foreach (var heroData in heroChar.Value)
-                        {
-                            //Itt érem el a dict-en belüli dict-et
-                            heroPrintX = heroData.Key;
-                            heroPrintY -= heroData.Value;
-                        }
-                    }
-                }
-            }
-            else if (mozgas == "Le!")
-            {
-                if (typeof(TKey) == typeof(Program.Hero))
-                {
-                    //Itt vizsgálom melyik karakter melyik pozícióban van
-                    foreach (var heroChar in placeHero)
-                    {
-                        //Itt tudom elérni a hero karaktert
-                        //heroChar.Key
-                        foreach (var heroData in heroChar.Value)
-                        {
-                            //Itt érem el a dict-en belüli dict-et
-                            heroPrintX = heroData.Key;
-                            heroPrintY += heroData.Value;
-                        }
-                    }
-                }
-            }
-            else if (mozgas == "Jobbra!")
-            {
-                if (typeof(TKey) == typeof(Program.Hero))
-                {
-                    //Itt vizsgálom melyik karakter melyik pozícióban van
-                    foreach (var heroChar in placeHero)
-                    {
-                        //Itt tudom elérni a hero karaktert
-                        //heroChar.Key
-                        foreach (var heroData in heroChar.Value)
-                        {
-                            //Itt érem el a dict-en belüli dict-et
-                            heroPrintX += heroData.Key;
-                            heroPrintY = heroData.Value;
-                        }
-                    }
-                }
-            }
-            else if (mozgas == "Balra!")
-            {
-                if (typeof(TKey) == typeof(Program.Hero))
-                {
-                    //Itt vizsgálom melyik karakter melyik pozícióban van
-                    foreach (var heroChar in placeHero)
-                    {
-                        //Itt tudom elérni a hero karaktert
-                        //heroChar.Key
-                        foreach (var heroData in heroChar.Value)
-                        {
-                            //Itt érem el a dict-en belüli dict-et
-                            heroPrintX -= heroData.Key;
-                            heroPrintY = heroData.Value;
-                        }
+                        Rectangle character = new Rectangle();
+                        character.Width = 20;
+                        character.Height = 20;
+                        character.Fill = Brushes.Red;
+                        double characterLeft = x * (canvas.Width / sizeX);
+                        double characterTop = y * (canvas.Height / sizeY);
+                        Canvas.SetLeft(character, characterLeft);
+                        Canvas.SetTop(character, characterTop);
+                        canvas.Children.Add(character);
                     }
                 }
             }
             
         }
         
-        public void mapManager<TKey, TValue>(Dictionary<TKey, Dictionary<int, int>> dictionary, 
-            Program.Hero? hero, 
-            Program.Enemy? enemy)
+        //Később mehet private-nak
+        public static void genMap(Program.Characters chars)
+        {
+            Rectangle square = new Rectangle();
+            square.Width = 300;
+            square.Height = 300;
+            square.Fill = Brushes.LightBlue;
+            Canvas.SetLeft(square, 0); // A Canvas bal felső sarkába helyezzük a nagyobb négyzetet
+            Canvas.SetTop(square, 0);
+            canvas.Children.Add(square);
+            
+            getPlaces(chars);
+        }
+
+        public static void moveChars(Program.Characters chars)
+        {
+            int charPrintX = 0;
+            int charPrintY = 0;
+            
+            if (placeChars.Keys.GetType() == typeof(Program.Hero))
+            {
+                var mozgas = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("Merre szeretnél mozogni?")
+                        .PageSize(10)
+                        .HighlightStyle(new Style(new Color(0, 128, 0)))
+                        .AddChoices("Fel!", "Le!", "Jobbra!", "Balra!")
+                        .AddChoices("[Red]Kilépés[/]"));
+                
+                //Ezt egy cikluson belül is meg lehet oldani!
+                if (mozgas == "Fel!")
+                {
+                    //Itt vizsgálom melyik karakter melyik pozícióban van
+                    foreach (var charChar in placeChars)
+                    {
+                        //Itt tudom elérni a hero karaktert
+                        //heroChar.Key
+                        foreach (var charData in charChar.Value)
+                        {
+                            //Itt érem el a dict-en belüli dict-et
+                            charPrintX = charData.Key;
+                            charPrintY -= charData.Value;
+                        }
+                    }
+                }
+                else if (mozgas == "Le!")
+                {
+                    //Itt vizsgálom melyik karakter melyik pozícióban van
+                    foreach (var charChar in placeChars)
+                    {
+                        //Itt tudom elérni a hero karaktert
+                        //heroChar.Key
+                        foreach (var charData in charChar.Value)
+                        {
+                            //Itt érem el a dict-en belüli dict-et
+                            charPrintX = charData.Key;
+                            charPrintY += charData.Value;
+                        }
+                    }
+                }
+                else if (mozgas == "Jobbra!")
+                {
+                    //Itt vizsgálom melyik karakter melyik pozícióban van
+                    foreach (var charChar in placeChars)
+                    {
+                        //Itt tudom elérni a hero karaktert
+                        //heroChar.Key
+                        foreach (var charData in charChar.Value)
+                        {
+                            //Itt érem el a dict-en belüli dict-et
+                            charPrintX += charData.Key;
+                            charPrintY = charData.Value;
+                        }
+                    }
+                }
+                else if (mozgas == "Balra!")
+                {
+                    //Itt vizsgálom melyik karakter melyik pozícióban van
+                    foreach (var charChar in placeChars)
+                    {
+                        //Itt tudom elérni a hero karaktert
+                        //heroChar.Key
+                        foreach (var charData in charChar.Value)
+                        {
+                            //Itt érem el a dict-en belüli dict-et
+                            charPrintX -= charData.Key;
+                            charPrintY = charData.Value;
+                        }
+                    }
+                }
+            }
+        }
+
+        // public static double inDistance(Program.Characters chars)
+        // {
+        //     //Ha a két érték (x, y) egyenlő, akkor tökmindegy melyik adat lesz a kereszt távolság
+        //     //StackOverFlow link dc!!
+        //     
+        //     var places = genMap(chars);
+        //
+        //     int charPrintX = places[0];
+        //     int charPrintY = places[1];
+        //     
+        //     //Távolság leellenőrzése
+        //     //Segéd távolság a pitagorasz tételhez
+        //     double tavolsagX = 0;
+        //     double tavolsagY = 0;
+        //     
+        //     //Fő távolság
+        //     double tavolsag = 0;
+        //
+        //     int referenciaErtek = 5;
+        //     bool tamadhatosag = false;
+        //     
+        //     //Egyenes távolság
+        //     if (placeChars.Keys.GetType() == placeChars.Keys.GetType(Program.Enemy))
+        //     {
+        //         tavolsagY = Math.Abs(heroPrintY) - Math.Abs(enemyPrintY);
+        //         tavolsag = tavolsagY;
+        //     }
+        //     else if(heroPrintY == enemyPrintY)
+        //     {
+        //         tavolsagX = Math.Abs(heroPrintX) - Math.Abs(enemyPrintX);
+        //         tavolsag = tavolsagX;
+        //     }
+        //     //Keresztbe lévő távolság
+        //     else if(heroPrintX != enemyPrintX && heroPrintY != enemyPrintY)
+        //     {
+        //         tavolsag = Math.Sqrt(Math.Pow(tavolsagX, 2) + Math.Pow(tavolsagY, 2));
+        //     }
+        //
+        //     if (Program.Character)
+        //     {
+        //         
+        //     }
+        // }
+        
+        public static void mapManager(Program.Characters chars)
         {
             int palyaSzam = 1;
             int szobaSzam = 1;
@@ -267,6 +261,7 @@ namespace mapGenerate
             while (true)
             {
                 //genMap függvény meghívása
+                genMap(chars);
                 
                 //Szoba, map számának a kiírása
                 Console.WriteLine($"{palyaSzam} számú pálya");
@@ -277,7 +272,6 @@ namespace mapGenerate
                     palyaSzam++;
                     szobaSzam = 1;
                 }
-                
                 if (palyaSzam == 4)
                 {
                     Console.WriteLine("Játék vége!");
@@ -288,5 +282,3 @@ namespace mapGenerate
         }
     }
 }
-
-//Map manager - melyik map és szoba

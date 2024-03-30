@@ -102,13 +102,13 @@ namespace JsonManager
         }
         
         //Szövegek beolvasása
-        public static Dictionary<string, Dictionary<string, string>> ReadJsonFile(string fileName)
+        private static Dictionary<string, Dictionary<string, string>> ReadJsonFile(string fileName)
         {
             string jsonString = File.ReadAllText(fileName);
             return JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(jsonString);
         }
 
-        public static KeyValuePair<string, string> GetRandomKeyValuePair(Dictionary<string, Dictionary<string, string>> dictionary)
+        private static KeyValuePair<string, string> GetRandomKeyValuePair(Dictionary<string, Dictionary<string, string>> dictionary)
         {
             Random rnd = new Random();
         
@@ -124,7 +124,7 @@ namespace JsonManager
             return new KeyValuePair<string, string>(selectedMainKey, selectedValue);
         }
 
-        public static void PrintKeyValuePair(KeyValuePair<string, string> selectedKeyValuePair)
+        private static void PrintKeyValuePair(KeyValuePair<string, string> selectedKeyValuePair)
         {
             Console.WriteLine($"Választott kulcs: {selectedKeyValuePair.Key}, Alkulcs: {selectedKeyValuePair.Key}, Érték: {selectedKeyValuePair.Value}");
         }

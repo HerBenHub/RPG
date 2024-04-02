@@ -51,6 +51,7 @@ namespace mapGenerate
                 placeChars.Add(chars, charPos);
             }
         }
+        
         private static List<int> genMap(Program.Characters chars)
         {
             int charPrintX = 0;

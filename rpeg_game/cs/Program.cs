@@ -2,14 +2,14 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using JsonManager;
 using RitkasagManager;
-using BattleManager;
+using static BattleManager.Battles;
 using System.Xml.Serialization;
 using Spectre.Console;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Runtime.InteropServices.JavaScript;
 using inventoryManager;
-using mapGenerate;
+// using mapGenerate;
 using test;
 
 namespace MainProgram
@@ -112,13 +112,13 @@ namespace MainProgram
                     hero = new Hero("Fighter", 100, 100, "sima_kard", "sima_pancel", 1, 10, 25, null, 1, false, 1);
                     break;
                 case "Ranger":
-                    hero = new Hero("Ranger", 80, 80, "íj", "nincs", 1, 18, 15, null, 1, false, 15);
+                    hero = new Hero("Ranger", 80, 80, "fagyos_ij", "nincs", 1, 18, 15, null, 1, false, 15);
                     break;
                 case "Sorcerer":
-                    hero = new Hero("Sorcerer", 80, 80, "bot", "nincs", 1, 18, 15, null, 1, false, 10);
+                    hero = new Hero("Sorcerer", 80, 80, "vasfa_varazsbot", "nincs", 1, 18, 15, null, 1, false, 10);
                     break;
                 case "Rogue":
-                    hero = new Hero("Rogue", 80, 80, "penge", "nincs", 1, 22, 25, null, 1, false, 2);
+                    hero = new Hero("Rogue", 80, 80, "nagypenge", "nincs", 1, 22, 25, null, 1, false, 2);
                     break;
             }
 
@@ -205,8 +205,10 @@ namespace MainProgram
 
             Hero? player = createCharacter();
             
-            Hero? seged1 = createCharacter("Ranger");
-            Enemy? enemy1 = createEnemy(6);
+            Hero? seged1 = createCharacter("Sorcerer");
+            Enemy? enemy1 = createEnemy(1);
+            Enemy? enemy2 = createEnemy(2);
+            Enemy? enemy3 = createEnemy(2);
             
             player.name = "asbvbsa";
             // Items.inventory.Add("szeltoro");
@@ -231,11 +233,12 @@ namespace MainProgram
             // tester.testing();
             
             
+            // tester.testing();
 
             // viewInventory.Tarhely(csapat);
             // viewInventory.Itemval(csapat);
 
-            //Battles.StartBattle([player, seged1], [enemy1]);
+            StartBattle([player, seged1], [enemy1,enemy2,enemy3]);
 
 
             //Értékek elérése

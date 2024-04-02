@@ -3,7 +3,7 @@
     {
         "tipus":"buff",
         "nev": "Extra Sebzés Varázslata",
-        "leiras": "Ez a varázslat 10%-al emeli az elvarázsolt társ sebzését 3 körig.",
+        "leiras": "Ez a varázslat 20%-al emeli az elvarázsolt társ sebzését",
         "hasznalat":10,
         "korhossz":3,
         "hatas":
@@ -15,7 +15,7 @@
     {
         "tipus":"buff",
         "nev": "Kitartás Varázslata",
-        "leiras": "Ez a varázslat 20%-al emeli az elvarázsolt társ páncélját és életét 2 körig.",
+        "leiras": "Ez a varázslat 20%-al emeli az elvarázsolt társ páncélját",
         "hasznalat":10,
         "korhossz":2,
         "hatas":
@@ -27,7 +27,7 @@
     {
         "tipus":"debuff",
         "nev": "Gyengeség Átka",
-        "leiras": "Ez az átok 10%-al gyengíti az elátkozott elleség páncélját, életét és sebzését 3 körig.",
+        "leiras": "Ez az átok 10%-al gyengíti az elátkozott elleség páncélját és sebzését",
         "hasznalat":15,
         "korhossz":3,
         "hatas":
@@ -40,19 +40,19 @@
     {
         "tipus":"buff",
         "nev": "Élet Feltöltés Varázsa",
-        "leiras": "Feltölti a célpont életét 50%-al",
+        "leiras": "Feltölti a célpont életét 20%-al",
         "hasznalat":15,
         "korhossz":3,
         "hatas":
         {
-            "hp":0.5
+            "hp":0.2
         }
     },
     "repules_varazs":
     {
         "tipus":"buff",
         "nev": "Repülés Varázsa",
-        "leiras": "Ez az átok felrepteti a kiválasztott társat 5 körig.",
+        "leiras": "Ez az átok felrepteti a kiválasztott társat",
         "hasznalat":20,
         "korhossz":5,
         "hatas":

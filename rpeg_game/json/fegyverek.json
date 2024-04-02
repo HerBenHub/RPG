@@ -3,7 +3,7 @@
     {
         "tipus":"Fighter",
         "nev": "Sima Kard",
-        "sebzes": 6,
+        "sebzes": 10,
         "ritkasag":"common",
         "hasznalat":10,
         "bonusz":"semmi",
@@ -14,7 +14,7 @@
     {
         "tipus":"Rogue",
         "nev":"Ezüst Tőr",
-        "sebzes":8,
+        "sebzes":5,
         "ritkasag":"common",
         "hasznalat":5,
         "bonusz":"10 sebzes Werewolf-okba",
@@ -46,9 +46,9 @@
     "nagypenge":{
         "tipus":"Rogue",
         "nev":"Nagy Penge",
-        "sebzes":7,
+        "sebzes":12,
         "ritkasag":"rare",
-        "hasznalat":10,
+        "hasznalat":8,
         "bonusz":"2 ellenséget is üthet egyszerre"
     },
 

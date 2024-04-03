@@ -10,7 +10,7 @@ using Spectre.Console;
 using static MainProgram.Program;
 using JsonManager;
 
-namespace inventoryManager
+namespace InventoryManager
 {
     public class Items
     {

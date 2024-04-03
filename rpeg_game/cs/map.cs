@@ -10,34 +10,35 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Runtime.InteropServices.JavaScript;
 using MainProgram;
+using static MainProgram.Program;
 using System.Collections.Generic;
 
-namespace mapGenerate
+namespace MapManager
 {
-    public class generateMap
+    public class Map
     {
         //Dict deklarálása
-        static Dictionary<Program.Characters, Dictionary<int, int>> placeChars =
-            new Dictionary<Program.Characters, Dictionary<int, int>>();
+        static Dictionary<Characters, Dictionary<int, int>> placeChars =
+            new Dictionary<Characters, Dictionary<int, int>>();
         
         static int sizeX = 10;
         static int sizeY = 10;
         
-        private static void genPlaces(Program.Characters chars)
+        private static void genPlaces(Characters chars)
         {
             Random rnd = new Random();
             
             int randomCharX = 0;
             int randomCharY = 0;
             
-            if (placeChars.Keys.GetType() == typeof(Program.Enemy))
+            if (placeChars.Keys.GetType() == typeof(Enemy))
             {
                 //Map alsó része
                 randomCharX = rnd.Next(sizeX - sizeX / 2, sizeY - 1);
                 randomCharY = rnd.Next(sizeX - sizeX / 2, sizeY - 1);
             }
 
-            else if (placeChars.Keys.GetType() == typeof(Program.Hero))
+            else if (placeChars.Keys.GetType() == typeof(Hero))
             {
                 //Map alsó része
                 randomCharX = rnd.Next(sizeX - sizeX, (sizeY / 2) - 1);
@@ -52,7 +53,7 @@ namespace mapGenerate
             }
         }
         
-        private static List<int> genMap(Program.Characters chars)
+        public static List<int> drawMap()
         {
             int charPrintX = 0;
             int charPrintY = 0;
@@ -71,21 +72,23 @@ namespace mapGenerate
                         charPrintX = charData.Key;
                         charPrintY = charData.Value;
 
-                        if (placeChars.Keys.GetType() == typeof(Program.Hero))
+                        if (placeChars.Keys.GetType() == typeof(Hero))
                         {
                             canvas.SetPixel(charPrintX, charPrintY, Color.White);
                         }
-                        else if (placeChars.Keys.GetType() == typeof(Program.Enemy))
+                        else if (placeChars.Keys.GetType() == typeof(Enemy))
                         {
                             canvas.SetPixel(charPrintX, charPrintY, Color.Red);
                         }
                     }
                 }
+                List<int> lista = [1,2];
                 //Keret
                 canvas.SetPixel(i, 0, Color.Green);
                 canvas.SetPixel(0, i, Color.Green);
                 canvas.SetPixel(i, canvas.Height - 1, Color.Green);
                 canvas.SetPixel(canvas.Width - 1, i, Color.Green);
+                canvas.SetPixel(lista[0],lista[1],Color.Green);
             }
             AnsiConsole.Write(canvas);
             
@@ -96,24 +99,24 @@ namespace mapGenerate
                 places.Clear();
             }
             
-            if (placeChars.Keys.GetType() == typeof(Program.Hero))
+            if (placeChars.Keys.GetType() == typeof(Hero))
             {
                 places.Add(charPrintX);
                 places.Add(charPrintY);
             }
-            else if (placeChars.Keys.GetType() == typeof(Program.Enemy))
+            else if (placeChars.Keys.GetType() == typeof(Enemy))
             {
                 places.Add(charPrintX);
                 places.Add(charPrintY);
             }
             return places;
         }
-        public static void moveChars(Program.Characters chars)
+        public static void moveChars(Characters chars)
         {
             int charPrintX = 0;
             int charPrintY = 0;
 
-            if (placeChars.Keys.GetType() == typeof(Program.Hero))
+            if (placeChars.Keys.GetType() == typeof(Hero))
             {
                 var mozgas = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -159,10 +162,10 @@ namespace mapGenerate
             }
         }
 
-        public static void inDistance(Program.Characters chars)
+        public static void inDistance(Characters chars)
         {
             
-            var places = genMap(chars);
+            var places = drawMap();
         
             int HcharPrintX = places[0];
             int HcharPrintY = places[1];
@@ -191,7 +194,7 @@ namespace mapGenerate
 
         }
         
-        public static void mapManager(Program.Characters chars)
+        public static void mapGenerate(Characters chars)
         {
             int palyaSzam = 1;
             int szobaSzam = 1;
@@ -199,8 +202,8 @@ namespace mapGenerate
             while (true)
             {
                 genPlaces(chars);
-                //genMap függvény meghívása
-                genMap(chars);
+                //drawMap függvény meghívása
+                drawMap();
                 
                 //Szoba, map számának a kiírása
                 Console.WriteLine($"{palyaSzam} számú pálya");

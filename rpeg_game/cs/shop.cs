@@ -8,7 +8,7 @@ using MainProgram;
 using JsonManager;
 using RitkasagManager;
 using System.Linq;
-using inventoryManager;
+using InventoryManager;
 
 namespace ShopManager
 {
@@ -16,17 +16,17 @@ namespace ShopManager
     {
         public static void Merchant()
         {
-            AnsiConsole.WriteLine("Találtál egy Árust.");
-            AnsiConsole.WriteLine("");
-            if (AnsiConsole.Confirm("Beszélsz vele!"))
+            AnsiConsole.WriteLine("Összetalálkoztál egy árússal.");
+
+            var arus = AnsiConsole.Prompt(new SelectionPrompt<string>()
+                .Title("Beszélsz vele?")
+                .PageSize(10)
+                .AddChoices(["[green]Igen[/]","[red]Nem[/]"]));
+            if (arus == "[green]Igen[/]")
             {
-                AnsiConsole.MarkupLine("Mire van szükséged?");
                 AnsiConsole.Clear();
+                AnsiConsole.Write(new Spectre.Console.Rule("Mire van szükséged?"));
                 Tartalom();
-            }
-            else
-            {
-                AnsiConsole.MarkupLine("Tovább haladsz az utadon");
             }
         }
         
@@ -40,7 +40,8 @@ namespace ShopManager
             var table = new Table();
 
             table.AddColumn("Eszközök");
-            table.AddColumn(new TableColumn("Típus").Centered());
+            table.AddColumn(new TableColumn("Típus"));
+            table.AddColumn(new TableColumn("Ritkaság"));
             table.AddColumn(new TableColumn("Árak").Centered());
 
             Dictionary<string, string> ritkasagok = new Dictionary<string, string>()
@@ -50,24 +51,29 @@ namespace ShopManager
                 {"rare", "130"},
                 {"epic", "140"},
                 {"legendary", "150"}
-                
             };
+
             ////////////////////////////////////////////////////////////////////////
-            /// return éréke megváltozott és nem tudok hivatkozni?
+            
+            string? currentRarity = null;
+            Random rand = new Random();
+
             List<FegyverAdatok> saveFegyver = new List<FegyverAdatok>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
-                FegyverAdatok fegyver = fegyverek[RitkasagSzamolo.LootGenerate(ritkasagok.Keys.ToList()[i])];
+                currentRarity = ritkasagok.Keys.ToList()[rand.Next(0,4)];
+                FegyverAdatok fegyver = fegyverek[RitkasagSzamolo.LootGenerate(currentRarity,1)];
                 saveFegyver.Add(fegyver);
-                table.AddRow(fegyver.nev, fegyver.tipus, fegyver.ritkasag, ritkasagok[ritkasagok.Keys.ToList()[i]]);
+                table.AddRow(fegyver.nev, fegyver.tipus, fegyver.ritkasag, ritkasagok[currentRarity]);
             }
             
             List<PancelAdatok> savePancel = new List<PancelAdatok>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
-                PancelAdatok pancel = pancelok[RitkasagSzamolo.LootGenerate(ritkasagok.Keys.ToList()[i])];
+                currentRarity = ritkasagok.Keys.ToList()[rand.Next(0,4)];
+                PancelAdatok pancel = pancelok[RitkasagSzamolo.LootGenerate(currentRarity,2)];
                 savePancel.Add(pancel);
-                table.AddRow(pancel.nev, pancel.tipus, pancel.ritkasag, ritkasagok[ritkasagok.Keys.ToList()[i]]);
+                table.AddRow(pancel.nev, pancel.tipus, pancel.ritkasag, ritkasagok[currentRarity]);
             }
             
             List<string> tempFegyver = new List<string>();
@@ -81,7 +87,9 @@ namespace ShopManager
             {
                 tempPancel.Add(pancel.nev);
             }
-            
+
+            AnsiConsole.Write("\n");
+            AnsiConsole.Write(table);
             
             // választás
             
@@ -91,6 +99,7 @@ namespace ShopManager
                     .MoreChoicesText("[grey](Válassz föl vagy le nyillal)[/]")
                     .AddChoices(tempFegyver)
                     .AddChoices(tempPancel)
+                    .AddChoices("[red]Kilépés[/]")
                 );
             
             AnsiConsole.WriteLine(fegyvalaszt);
@@ -100,15 +109,15 @@ namespace ShopManager
                 if (tempFegyver.Contains(fegyvalaszt))
                 {
                     FegyverAdatok fegyver = saveFegyver[tempFegyver.IndexOf(fegyvalaszt)];
-                    inventoryManager.Items.penz = inventoryManager.Items.penz - Int32.Parse(ritkasagok[fegyver.ritkasag]);
+                    Items.penz = Items.penz - Int32.Parse(ritkasagok[fegyver.ritkasag]);
                 }
                 else if(tempPancel.Contains(fegyvalaszt))
                 {
                     PancelAdatok pancel = savePancel[tempPancel.IndexOf(fegyvalaszt)];
-                    inventoryManager.Items.penz = inventoryManager.Items.penz - Int32.Parse(ritkasagok[pancel.ritkasag]);
+                    Items.penz = Items.penz - Int32.Parse(ritkasagok[pancel.ritkasag]);
                 }
                 
-                Console.WriteLine("Aktuális összeged: " + inventoryManager.Items.penz);
+                Console.WriteLine("Aktuális összeged: " + Items.penz);
             }
             else
             {
@@ -125,18 +134,18 @@ namespace ShopManager
                 new SelectionPrompt<string>()
                     .PageSize(10)
                     .MoreChoicesText("[grey](Válassz föl vagy le nyillal)[/]")
-                    .AddChoices(inventoryManager.Items.inventory));
+                    .AddChoices(Items.inventory));
             
             if (fegyverek.ContainsKey(kivalaszt))
             {
-                inventoryManager.Items.penz += (int)Math.Round(Int32.Parse(ritkasagok[fegyverek[kivalaszt].ritkasag]) * 0.8);
+                Items.penz += (int)Math.Round(Int32.Parse(ritkasagok[fegyverek[kivalaszt].ritkasag]) * 0.8);
             }
             else if(pancelok.ContainsKey(kivalaszt))
             {
                 Items.penz += (int)Math.Round(Int32.Parse(ritkasagok[pancelok[kivalaszt].ritkasag]) * 0.8);
             }
             
-            inventoryManager.Items.inventory.Remove(kivalaszt);
+            Items.inventory.Remove(kivalaszt);
             Console.WriteLine("Kiválasztott elem: " + kivalaszt + " eladva!");
         }
         public void  StartShop()

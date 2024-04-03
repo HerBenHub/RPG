@@ -24,7 +24,7 @@ namespace AIController
                     {
                         ctx.Spinner(Spinner.Known.SimpleDots);
                         ctx.SpinnerStyle(Style.Parse("red3_1"));
-                        Thread.Sleep(rand.Next(2000,5000));
+                        Thread.Sleep(rand.Next(1000,4000));
                     });
 
                 if (currentAttacker.points < 10)

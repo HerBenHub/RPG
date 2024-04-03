@@ -3,12 +3,13 @@ using System.Text.Json;
 using JsonManager;
 using System;
 using Newtonsoft.Json; 
+using static InventoryManager.Items;
 namespace RitkasagManager
 {
 
     class RitkasagSzamolo
     {
-        public static string LootGenerate(string? lada_ritkasag) 
+        public static string? LootGenerate(string? lada_ritkasag, int? valaszt = null) 
         {
             var rand = new Random();
 
@@ -45,38 +46,40 @@ namespace RitkasagManager
 
             ////////////////////////////////////////////////////////////////////////////////
             Random random = new Random();
-            int valaszt = random.Next(1, 2);
-            List<string> fegyver_pancelRitkasag = new List<string>();
+            if (valaszt==null) {valaszt = random.Next(1, 2);}
             
+            List<string> kivalasztott = new List<string>();
+
             if (valaszt == 1)
             {
                 foreach (var elemek in fegyverek)
                 {
                     if (elemek.Value.ritkasag == kapott_ritkasag)
                     {
-                        fegyver_pancelRitkasag.Add(elemek.Key);
+                        kivalasztott.Add(elemek.Key);
                     }
                 }
             }
-            else if (valaszt == 2)
+            if (valaszt == 2)
             {
-                List<string> pancelRitkasag = new List<string>();
-                foreach (var elemek in fegyverek)
+                foreach (var elemek in pancelok)
                 {
                     if (elemek.Value.ritkasag == kapott_ritkasag)
                     {
-                        pancelRitkasag.Add(elemek.Key);
+                        kivalasztott.Add(elemek.Key);
                     }
                 }
 
             }
+            
 
-            int num = rand.Next(fegyver_pancelRitkasag.Count());
+            int num = rand.Next(0,kivalasztott.Count());
+            // System.Console.WriteLine($"{valaszt} : {kapott_ritkasag} : {kivalasztott.Count()} : {num}"); //debug
             
             //A két listát bele kéne rakni úgy egy harmadikba, hogy azt tudjam returnolni, majd ha az egyik allistában
             //megváltozik valami az rögtön a folyamatok legvégén, a harmadik listában is megváltozzon.
                 
-            return fegyver_pancelRitkasag[num];
+            return kivalasztott[num];
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using AIController;
+using MapManager;
 
 namespace BattleManager
 {
@@ -35,7 +36,7 @@ namespace BattleManager
         //  \___|  |___/ /_/ \_\   |_|   /_/ \_\   |_|   \___/   \___|  \___|   \_/   |__< |_|\_|   |_|                                                                                                                                                                     
         //                                                      
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static bool StartBattle(Hero[] Heroes, Enemy[] Enemies)
+        public static bool StartBattle(List<Hero> Heroes, Enemy[] Enemies)
         {
             // karakterek beillesztése
             foreach (Hero hero in Heroes)
@@ -51,8 +52,12 @@ namespace BattleManager
             currentAttacker = CharactersInBattle[0];
             targetedCharacter = Enemies[0];
             
+            foreach (Characters? c in CharactersInBattle)
+            {
+                Map.mapGenerate(c);
+            }
 
-
+            ///////////////////////////////////////////////////////////////////
 
             void Action()
             {                
@@ -72,7 +77,7 @@ namespace BattleManager
 
                 string actionPrompt = AnsiConsole.Prompt(action);
 
-                string asdconverter(Characters c)
+                string characterconverter(Characters c)
                 {
                     return c.name;
                 }
@@ -86,7 +91,7 @@ namespace BattleManager
                             .PageSize(10)
                             .HighlightStyle(new Style(new Color(150,150,100),null,Decoration.Italic))
                             .MoreChoicesText("[lightcyan3](Menj lejjebb!)[/]")
-                            .UseConverter(new Func<Characters, string>(asdconverter));
+                            .UseConverter(new Func<Characters, string>(characterconverter));
 
 
                     foreach (Hero hero in CharactersInBattle.OfType<Hero>())
@@ -110,20 +115,6 @@ namespace BattleManager
                     {
                         Attack(currentAttacker, celpont);
                     }
-
-
-                    // if (celpontPrompt != "[red]<---[/]")
-                    // {
-                    //     targetedCharacter = NameSync[celpontPrompt];
-                    //     if (actionPrompt == "mágia használata" && currentAttacker.eredeti.name == "Sorcerer")
-                    //     {
-                    //         CastSpell(currentAttacker, targetedCharacter);
-                    //     }
-                    //     else
-                    //     {
-                    //         Attack(currentAttacker, targetedCharacter);
-                    //     }
-                    // }
                 }
             }
 
@@ -267,6 +258,8 @@ namespace BattleManager
             AnsiConsole.Clear();
             var rule = new Rule("Csata Folymatban!");   
             AnsiConsole.Write(rule);
+
+            Map.drawMap();
 
             // irja ki a baratokat
             AnsiConsole.WriteLine("Társak a csatában:");

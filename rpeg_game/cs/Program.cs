@@ -8,8 +8,9 @@ using Spectre.Console;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Runtime.InteropServices.JavaScript;
-using inventoryManager;
-// using mapGenerate;
+using InventoryManager;
+using ShopManager;
+using MapManager;
 using test;
 
 namespace MainProgram
@@ -228,8 +229,10 @@ namespace MainProgram
             // {
             //     Console.WriteLine(item);
             // }
-
-            //generateMap.genMap();
+            
+            // Shop.Merchant();
+            
+            // generateMap.genMap();
             // tester.testing();
             
             
@@ -238,7 +241,7 @@ namespace MainProgram
             // viewInventory.Tarhely(csapat);
             // viewInventory.Itemval(csapat);
 
-            StartBattle([player, seged1], [enemy1,enemy2,enemy3]);
+            StartBattle(csapat, [enemy1,enemy2,enemy3]);
 
 
             //Értékek elérése
